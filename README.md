@@ -2,6 +2,7 @@
 
 As part of a colaborative approach to solvethe discovery problem and related read rights management of distributed EPCIS repositories, this repository hosts conceptual documents and prototypical implementations of tools to hide (sanitise) EPCIS event data.
 
+The EPCIS document parsing and hashing functionality of this project is imported from https://github.com/RalphTro/epcis-event-hash-generator . See there for details.
 
 ## License
 
