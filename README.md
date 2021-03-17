@@ -1,5 +1,8 @@
 # EPCIS Sanitisation
 
+[![Build Status](https://github.com/european-epc-competence-center/epcis-sanitisation/workflows/Unit%20Tests/badge.svg?v=42)](https://github.com/RalphTro/epcis-event-hash-generator/actions?query=workflow%3A%22Unit+Tests%22)
+[![Linter Status](https://github.com/european-epc-competence-center/epcis-sanitisation/workflows/Code%20Style/badge.svg)](https://github.com/RalphTro/epcis-event-hash-generator/actions?query=workflow%3A%22Code+Style%22)
+
 As part of a colaborative approach to solvethe discovery problem and related read rights management of distributed EPCIS repositories, this repository hosts conceptual documents and prototypical implementations of tools to hide (sanitise) EPCIS event data.
 
 The EPCIS document parsing and hashing functionality of this project is imported from https://github.com/RalphTro/epcis-event-hash-generator . See there for details.
