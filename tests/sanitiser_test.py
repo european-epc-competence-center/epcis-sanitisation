@@ -37,8 +37,21 @@ def test_sanitisation(caplog):
         ])
     ])
 
-    expected = {"eventId": hash_generator.epcis_hashes_from_events(events)[0]}
+    hash_fct = sanitiser.hash_alg_to_fct()
 
-    sanitised = sanitiser.sanitise_events(events)[0]
+    expected = {
+        'eventId': hash_generator.epcis_hashes_from_events(events)[0],
+        'eventTime': '2020-03-04T11:00:30.000+01:00',
+        'action': 'OBSERVE',
+        'epcList': [
+            hash_fct('urn:epc:id:sscc:4012345.0000000111'),
+            hash_fct('urn:epc:id:sscc:4012345.0000000222'),
+            hash_fct('urn:epc:id:sscc:4012345.0000000333')
+        ],
+        'request_event_data_at': 'https://never.land'
+    }
+
+    sanitised = sanitiser.sanitise_events(
+        events=events, dead_drop_url='https://never.land')[0]
 
     assert expected == sanitised

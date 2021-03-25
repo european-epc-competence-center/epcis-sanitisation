@@ -61,6 +61,11 @@ def __command_line_parsing(args):
         help="If given, write the output for each input file into a sibling output file "
              "with the same name + '.sanitised.json' instead of stdout.",
         action="store_true")
+    parser.add_argument(
+        "-d",
+        "--dead-drop-url",
+        help="URL to dead drop for requesting the full event data",
+        default="")
 
     args = parser.parse_args(args)
 
@@ -96,7 +101,8 @@ def main(argv):
         logging.debug(
             "\n\nEvents contained in '{}':\n{}".format(filename, events))
 
-        sanitised_events = sanitiser.sanitise_events(events, args.algorithm)
+        sanitised_events = sanitiser.sanitise_events(
+            events=events, hashalg=args.algorithm, dead_drop_url=args.dead_drop_url)
 
         print("\nSanitised Events:")
         for event in sanitised_events:

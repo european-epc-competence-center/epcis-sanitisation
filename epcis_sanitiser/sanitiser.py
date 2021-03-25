@@ -29,13 +29,11 @@ import hashlib
 from epcis_event_hash_generator import hash_generator
 
 
-def sanitise_events(events, hashalg='sha256'):
+def hash_alg_to_fct(hashalg='sha256'):
     """
-    Calculate the sanitized event for each event in the list and return the list of sanitized events.
+    Convert the hashalg string that specifies the hashing algorithm to be used into
+    the corresponding str -> str function that produces the named identifier
     """
-
-    logging.debug("Sanitising {}".format(events))
-
     if hashalg == 'sha256':
         def hash_fct(x):
             return 'ni:///sha-256;' + \
@@ -55,7 +53,19 @@ def sanitise_events(events, hashalg='sha256'):
     else:
         raise ValueError("Unsupported Hashing Algorithm: " + hashalg)
 
+    return hash_fct
+
+
+def sanitise_events(events, dead_drop_url, hashalg='sha256'):
+    """
+    Calculate the sanitized event for each event in the list and return the list of sanitized events.
+    """
+
+    logging.debug("Sanitising {}".format(events))
+
     hashes = hash_generator.epcis_hashes_from_events(events, hashalg)
+
+    hash_fct = hash_alg_to_fct(hashalg)
 
     sanitised_events = []
     for event, hash in zip(events[2], hashes):
