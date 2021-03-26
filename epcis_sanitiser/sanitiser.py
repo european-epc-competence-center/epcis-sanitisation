@@ -26,7 +26,7 @@ except ImportError:
 import logging
 import hashlib
 
-from epcis_event_hash_generator import hash_generator
+from epcis_event_hash_generator import hash_generator, dl_normaliser
 from epcis_sanitiser import SANITIZED_FIELDS
 
 
@@ -38,19 +38,19 @@ def hash_alg_to_fct(hashalg='sha256'):
     if hashalg == 'sha256':
         def hash_fct(x):
             return 'ni:///sha-256;' + \
-                hashlib.sha256(x.encode('utf-8')).hexdigest() + '?ver=CBV2.0'
+                hashlib.sha256(x.encode('utf-8')).hexdigest()
     elif hashalg == 'sha3_256':
         def hash_fct(x):
             return 'ni:///sha3_256;' + \
-                hashlib.sha3_256(x.encode('utf-8')).hexdigest() + '?ver=CBV2.0'
+                hashlib.sha3_256(x.encode('utf-8')).hexdigest()
     elif hashalg == 'sha384':
         def hash_fct(x):
             return 'ni:///sha-384;' + \
-                hashlib.sha384(x.encode('utf-8')).hexdigest() + '?ver=CBV2.0'
+                hashlib.sha384(x.encode('utf-8')).hexdigest()
     elif hashalg == 'sha512':
         def hash_fct(x):
             return 'ni:///sha-512;' + \
-                hashlib.sha512(x.encode('utf-8')).hexdigest() + '?ver=CBV2.0'
+                hashlib.sha512(x.encode('utf-8')).hexdigest()
     else:
         raise ValueError("Unsupported Hashing Algorithm: " + hashalg)
 
@@ -75,7 +75,10 @@ def sanitise_events(events, dead_drop_url, hashalg='sha256', config=SANITIZED_FI
     return sanitised_events
 
 
-def _hash_and_salt_if_necessary(value, hash_fct, hash_salt):
+def _normalise_hash_and_salt_if_necessary(value, hash_fct, hash_salt):
+    normalised = dl_normaliser.normaliser(value)
+    if normalised:
+        value = normalised
     if hash_salt is None:
         return value
     return hash_fct(value + hash_salt)
@@ -91,18 +94,18 @@ def _sanitise_event(event, hash, hash_fct, dead_drop_url, config):
 
     for (field, hash_salt) in config.items():
         if field == "eventId":
-            sanitised_event["eventId"] = _hash_and_salt_if_necessary(hash, hash_fct, hash_salt)
+            sanitised_event["eventId"] = _normalise_hash_and_salt_if_necessary(hash, hash_fct, hash_salt)
             continue
         for key, value, children in event[2]:
             if key == field:
                 if not children:
-                    sanitised_event[key] = _hash_and_salt_if_necessary(
+                    sanitised_event[key] = _normalise_hash_and_salt_if_necessary(
                         value, hash_fct, hash_salt)
                 else:
                     sanitised_event[key] = []
                     for (_, child_val, _) in children:
                         sanitised_event[key].append(
-                            _hash_and_salt_if_necessary(child_val, hash_fct, hash_salt))
+                            _normalise_hash_and_salt_if_necessary(child_val, hash_fct, hash_salt))
 
     return sanitised_event
 

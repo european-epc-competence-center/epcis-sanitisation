@@ -1,5 +1,5 @@
 {
-    "eventId": "Salt",
+    "eventId": "Pepper",
     "eventTime": null,
     "action": null,
     "parentID": "",
@@ -13,6 +13,6 @@
     "outputQuantityList": "",
     "bizStep" : null,
     "sourceList": "",
-    "destinationList": "",
+    "destinationList": "SALT",
     "bizTransactionList": ""
 }

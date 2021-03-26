@@ -5,7 +5,7 @@ except ImportError:
 
 from epcis_sanitiser import sanitiser
 
-from epcis_event_hash_generator import hash_generator
+from epcis_event_hash_generator import hash_generator, dl_normaliser
 
 import logging
 import hashlib
@@ -13,7 +13,7 @@ import hashlib
 
 def hash_fct(x):
     return 'ni:///sha-256;' + \
-        hashlib.sha256(x.encode('utf-8')).hexdigest() + '?ver=CBV2.0'
+        hashlib.sha256(x.encode('utf-8')).hexdigest()
 
 
 def test_sanitisation(caplog):
@@ -45,9 +45,9 @@ def test_sanitisation(caplog):
         'bizStep': 'urn:epcglobal:cbv:bizstep:departing',
         'action': 'OBSERVE',
         'epcList': [
-            hash_fct('urn:epc:id:sscc:4012345.0000000111'),
-            hash_fct('urn:epc:id:sscc:4012345.0000000222'),
-            hash_fct('urn:epc:id:sscc:4012345.0000000333')
+            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000111')),
+            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000222')),
+            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000333'))
         ],
         'request_event_data_at': 'https://never.land'
     }
