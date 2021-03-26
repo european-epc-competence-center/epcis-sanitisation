@@ -5,11 +5,26 @@ The second parameter (value) is
 - a string (potentially empty) that is appended to the value befor hashing.
   Specify a non empty value for salting purposes.
 
-If including an element with children, include all children and hash each one seperately
+If including an element with children, include all children and hash each one separately.
+
+This is the default used. Run the cli tool with '-c some_config.json' to load other values,
+ in particular in order to set salts.
 """
 SANITIZED_FIELDS = {
+    "eventId": "Salt",
     "eventTime": None,
     "action": None,
     "parentID": "",
-    "epcList": ""
+    "epcList": "",
+    "inputEPCList": "",
+    "outputEPCList": "",
+    "childEPCs": "",
+    "quantityList": "",
+    "childQuantityList": "",
+    "inputQuantityList": "",
+    "outputQuantityList": "",
+    "bizStep": None,
+    "sourceList": "",
+    "destinationList": "",
+    "bizTransactionList": ""
 }

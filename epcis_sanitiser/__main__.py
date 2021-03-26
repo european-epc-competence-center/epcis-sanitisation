@@ -28,6 +28,7 @@ from epcis_sanitiser import sanitiser
 
 
 import argparse
+import json
 import logging
 import sys
 from epcis_event_hash_generator import events_from_file_reader
@@ -65,6 +66,14 @@ def __command_line_parsing(args):
         "--dead-drop-url",
         help="URL to dead drop for requesting the full event data",
         default="")
+    parser.add_argument(
+        "-c",
+        "--sanitisation-config-file",
+        help="JSON file containing a dictionary of fields to be included in the sanitised" +
+        " events -> hash salt to be used." +
+        " Set the salt to empty string for unsalted hashing " +
+        "and to None for including the clear text value without hashing"
+    )
 
     args = parser.parse_args(args)
 
@@ -100,8 +109,15 @@ def main(argv):
         logging.debug(
             "\n\nEvents contained in '{}':\n{}".format(filename, events))
 
+        config = epcis_sanitiser.SANITIZED_FIELDS
+
+        if args.sanitisation_config_file:
+            with open(args.sanitisation_config_file, 'r') as file:
+                data = file.read()
+            config = json.loads(data)
+
         sanitised_events = sanitiser.sanitise_events(
-            events=events, hashalg=args.algorithm, dead_drop_url=args.dead_drop_url)
+            events=events, hashalg=args.algorithm, dead_drop_url=args.dead_drop_url, config=config)
 
         print("\nSanitised Events:")
         for event in sanitised_events:

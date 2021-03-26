@@ -57,7 +57,7 @@ def hash_alg_to_fct(hashalg='sha256'):
     return hash_fct
 
 
-def sanitise_events(events, dead_drop_url, hashalg='sha256'):
+def sanitise_events(events, dead_drop_url, hashalg='sha256', config=SANITIZED_FIELDS):
     """
     Calculate the sanitized event for each event in the list and return the list of sanitized events.
     """
@@ -70,7 +70,7 @@ def sanitise_events(events, dead_drop_url, hashalg='sha256'):
 
     sanitised_events = []
     for event, hash in zip(events[2], hashes):
-        sanitised_events.append(_sanitise_event(event, hash, hash_fct, dead_drop_url))
+        sanitised_events.append(_sanitise_event(event, hash, hash_fct, dead_drop_url, config))
 
     return sanitised_events
 
@@ -81,16 +81,18 @@ def _hash_and_salt_if_necessary(value, hash_fct, hash_salt):
     return hash_fct(value + hash_salt)
 
 
-def _sanitise_event(event, hash, hash_fct, dead_drop_url):
+def _sanitise_event(event, hash, hash_fct, dead_drop_url, config):
 
     logging.debug("Sanitising event: %s", event)
 
     sanitised_event = {}
 
-    sanitised_event["eventId"] = hash
     sanitised_event["request_event_data_at"] = dead_drop_url
 
-    for (field, hash_salt) in SANITIZED_FIELDS.items():
+    for (field, hash_salt) in config.items():
+        if field == "eventId":
+            sanitised_event["eventId"] = _hash_and_salt_if_necessary(hash, hash_fct, hash_salt)
+            continue
         for key, value, children in event[2]:
             if key == field:
                 if not children:

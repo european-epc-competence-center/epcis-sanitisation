@@ -40,8 +40,9 @@ def test_sanitisation(caplog):
     hash_fct = sanitiser.hash_alg_to_fct()
 
     expected = {
-        'eventId': hash_generator.epcis_hashes_from_events(events)[0],
+        'eventId': hash_fct(hash_generator.epcis_hashes_from_events(events)[0] + "Salt"),
         'eventTime': '2020-03-04T11:00:30.000+01:00',
+        'bizStep': 'urn:epcglobal:cbv:bizstep:departing',
         'action': 'OBSERVE',
         'epcList': [
             hash_fct('urn:epc:id:sscc:4012345.0000000111'),

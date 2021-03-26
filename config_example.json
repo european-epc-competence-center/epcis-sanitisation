@@ -1,0 +1,18 @@
+{
+    "eventId": "Salt",
+    "eventTime": null,
+    "action": null,
+    "parentID": "",
+    "epcList": "",
+    "inputEPCList": "",
+    "outputEPCList": "",
+    "childEPCs": "",
+    "quantityList": "",
+    "childQuantityList": "",
+    "inputQuantityList": "",
+    "outputQuantityList": "",
+    "bizStep" : null,
+    "sourceList": "",
+    "destinationList": "",
+    "bizTransactionList": ""
+}
