@@ -9,7 +9,7 @@ The EPCIS document parsing and hashing functionality of this project is imported
 
 ## License
 
-Copyright (c) 2020 GS1 Germany, European EPC Competence Center GmbH (EECC)
+Copyright (c) 2020-2021 GS1 Germany, European EPC Competence Center GmbH (EECC)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
