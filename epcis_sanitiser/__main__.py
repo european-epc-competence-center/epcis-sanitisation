@@ -28,10 +28,9 @@ from epcis_sanitiser import sanitiser
 
 
 import argparse
-import hashlib
 import logging
 import sys
-from epcis_event_hash_generator import events_from_file_reader, hash_generator
+from epcis_event_hash_generator import events_from_file_reader
 
 
 def __command_line_parsing(args):

@@ -27,6 +27,7 @@ import logging
 import hashlib
 
 from epcis_event_hash_generator import hash_generator
+from epcis_sanitiser import SANITIZED_FIELDS
 
 
 def hash_alg_to_fct(hashalg='sha256'):
@@ -69,21 +70,37 @@ def sanitise_events(events, dead_drop_url, hashalg='sha256'):
 
     sanitised_events = []
     for event, hash in zip(events[2], hashes):
-        sanitised_events.append(_sanitise_event(event, hash, hash_fct))
+        sanitised_events.append(_sanitise_event(event, hash, hash_fct, dead_drop_url))
 
     return sanitised_events
 
 
-def _sanitise_event(event, hash, hash_fct):
+def _hash_and_salt_if_necessary(value, hash_fct, hash_salt):
+    if hash_salt is None:
+        return value
+    return hash_fct(value + hash_salt)
+
+
+def _sanitise_event(event, hash, hash_fct, dead_drop_url):
+
+    logging.debug("Sanitising event: %s", event)
 
     sanitised_event = {}
 
     sanitised_event["eventId"] = hash
+    sanitised_event["request_event_data_at"] = dead_drop_url
 
-    # todo: stuff like this:
-    # eventTime = _extact_field(event, "eventTime")
-    # if eventTime:
-    #    sanitised_event["eventTime"] = eventTime[1]
+    for (field, hash_salt) in SANITIZED_FIELDS.items():
+        for key, value, children in event[2]:
+            if key == field:
+                if not children:
+                    sanitised_event[key] = _hash_and_salt_if_necessary(
+                        value, hash_fct, hash_salt)
+                else:
+                    sanitised_event[key] = []
+                    for (_, child_val, _) in children:
+                        sanitised_event[key].append(
+                            _hash_and_salt_if_necessary(child_val, hash_fct, hash_salt))
 
     return sanitised_event
 
