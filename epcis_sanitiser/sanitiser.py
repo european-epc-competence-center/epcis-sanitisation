@@ -30,7 +30,7 @@ from epcis_event_hash_generator import hash_generator, dl_normaliser
 from epcis_sanitiser import SANITIZED_FIELDS
 
 
-def hash_alg_to_fct(hashalg='sha256'):
+def _hash_alg_to_fct(hashalg='sha256'):
     """
     Convert the hashalg string that specifies the hashing algorithm to be used into
     the corresponding str -> str function that produces the named identifier
@@ -66,7 +66,7 @@ def sanitise_events(events, dead_drop_url, hashalg='sha256', config=SANITIZED_FI
 
     hashes = hash_generator.epcis_hashes_from_events(events, hashalg)
 
-    hash_fct = hash_alg_to_fct(hashalg)
+    hash_fct = _hash_alg_to_fct(hashalg)
 
     sanitised_events = []
     for event, hash in zip(events[2], hashes):

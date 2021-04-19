@@ -10,6 +10,8 @@ from epcis_event_hash_generator import hash_generator, dl_normaliser
 import logging
 import hashlib
 
+_dead_drop_url = 'https://never.land'
+
 
 def hash_fct(x):
     return 'ni:///sha-256;' + \
@@ -37,7 +39,7 @@ def test_sanitisation(caplog):
         ])
     ])
 
-    hash_fct = sanitiser.hash_alg_to_fct()
+    hash_fct = sanitiser._hash_alg_to_fct()
 
     expected = {
         'eventId': hash_fct(hash_generator.epcis_hashes_from_events(events)[0] + "Salt"),
@@ -49,10 +51,58 @@ def test_sanitisation(caplog):
             hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000222')),
             hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000333'))
         ],
-        'request_event_data_at': 'https://never.land'
+        'request_event_data_at': _dead_drop_url
     }
 
     sanitised = sanitiser.sanitise_events(
-        events=events, dead_drop_url='https://never.land')[0]
+        events=events, dead_drop_url=_dead_drop_url)[0]
+
+    assert expected == sanitised
+
+
+def test_type_parameters():
+    events = ('EventList', '',
+              [
+                  ('ObjectEvent', '',
+                   [
+                       ('bizTransactionList', '',
+                        [
+                            ('bizTransaction', 'http://transaction.acme.com/po/12345678',
+                             [
+                                 ('type', 'urn:epcglobal:cbv:btt:po', [])
+                             ])
+                        ]),
+                       ('destinationList', '',
+                        [
+                            ('destination', 'urn:epc:id:pgln:0614141.00000',
+                             [
+                                 ('type', 'urn:epcglobal:cbv:sdt:owning_party', [])
+                             ])
+                        ]),
+                       ('sourceList', '',
+                        [
+                            ('source', 'urn:epc:id:pgln:4012345.00000',
+                             [
+                                 ('type', 'somewhere', [])
+                             ])
+                        ])
+                   ])
+              ])
+
+    expected = {
+        'request_event_data_at': _dead_drop_url,
+        'sourceList': [
+            'ni:///sha-256;4628a595d99c04a7452516059fdc4a0ffd86007dfdcd62801924472a53751098?sdt=somewhere'
+        ],
+        'destinationList': [
+            'ni:///sha-256;12ec52904c050fb69dc72704f59050491caf1791353ad7ad604832ad6b0e2f26?sdt=urn:epcglobal:cbv:sdt:owning_party'
+        ],
+        'bizTransactionList': [
+            'ni:///sha-256;9ec23ce8422f593d898ad0612c3332dae206fc7dd323a6359a6f3d99db635a84?btt=urn:epcglobal:cbv:btt:po'
+        ]
+    }
+
+    sanitised = sanitiser.sanitise_events(
+        events=events, dead_drop_url=_dead_drop_url)[0]
 
     assert expected == sanitised
