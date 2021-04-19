@@ -103,9 +103,15 @@ def _sanitise_event(event, hash, hash_fct, dead_drop_url, config):
                         value, hash_fct, hash_salt)
                 else:
                     sanitised_event[key] = []
-                    for (_, child_val, _) in children:
-                        sanitised_event[key].append(
-                            _normalise_hash_and_salt_if_necessary(child_val, hash_fct, hash_salt))
+                    for (_, child_val, properties) in children:
+                        sanitised_value = _normalise_hash_and_salt_if_necessary(child_val, hash_fct, hash_salt)
+                        type_query_params = [type for (name, type, []) in properties if name == 'type']
+                        if type_query_params:
+                            if len(type_query_params) > 1:
+                                logging.warn("More than one type parameter for %s.", child_val)
+                            sanitised_value += '?type=' + "&type=".join(type_query_params)
+
+                        sanitised_event[key].append(sanitised_value)
 
     return sanitised_event
 
