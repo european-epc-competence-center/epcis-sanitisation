@@ -110,7 +110,7 @@ def main(argv):
         logging.debug(
             "\n\nEvents contained in '{}':\n{}".format(filename, events))
 
-        config = epcis_sanitiser.SANITISED_FIELDS
+        config = epcis_sanitiser.DEFAULT_CONFIG
 
         if args.sanitisation_config_file:
             with open(args.sanitisation_config_file, 'r') as file:

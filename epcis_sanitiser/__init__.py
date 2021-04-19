@@ -10,22 +10,25 @@ If including an element with children, include all children and hash each one se
 This is the default used. Run the cli tool with '-c some_config.json' to load other values,
  in particular in order to set salts.
 """
-SANITISED_FIELDS = {
-    "eventType": None,
-    "eventId": "Salt",
-    "eventTime": None,
-    "action": None,
-    "parentID": "",
-    "epcList": "",
-    "inputEPCList": "",
-    "outputEPCList": "",
-    "childEPCs": "",
-    "quantityList": "",
-    "childQuantityList": "",
-    "inputQuantityList": "",
-    "outputQuantityList": "",
-    "bizStep": None,
-    "sourceList": "",
-    "destinationList": "",
-    "bizTransactionList": ""
+DEFAULT_CONFIG = {
+    "dead_drop_url": "",
+    "sanitised_fields": {
+        "eventType": None,
+        "eventId": "Salt",
+        "eventTime": None,
+        "action": None,
+        "parentID": "",
+        "epcList": "",
+        "inputEPCList": "",
+        "outputEPCList": "",
+        "childEPCs": "",
+        "quantityList": "",
+        "childQuantityList": "",
+        "inputQuantityList": "",
+        "outputQuantityList": "",
+        "bizStep": None,
+        "sourceList": "",
+        "destinationList": "",
+        "bizTransactionList": ""
+    }
 }
