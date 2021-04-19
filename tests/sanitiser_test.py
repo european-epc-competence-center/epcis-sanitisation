@@ -42,6 +42,7 @@ def test_sanitisation(caplog):
     hash_fct = sanitiser._hash_alg_to_fct()
 
     expected = {
+        'eventType': 'ObjectEvent',
         'eventId': hash_fct(hash_generator.epcis_hashes_from_events(events)[0] + "Salt"),
         'eventTime': '2020-03-04T11:00:30.000+01:00',
         'bizStep': 'urn:epcglobal:cbv:bizstep:departing',
@@ -90,6 +91,7 @@ def test_type_parameters():
               ])
 
     expected = {
+        'eventType': 'ObjectEvent',
         'request_event_data_at': _dead_drop_url,
         'sourceList': [
             'ni:///sha-256;4628a595d99c04a7452516059fdc4a0ffd86007dfdcd62801924472a53751098?type=somewhere'

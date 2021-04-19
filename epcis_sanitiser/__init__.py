@@ -11,6 +11,7 @@ This is the default used. Run the cli tool with '-c some_config.json' to load ot
  in particular in order to set salts.
 """
 SANITIZED_FIELDS = {
+    "eventType": None,
     "eventId": "Salt",
     "eventTime": None,
     "action": None,

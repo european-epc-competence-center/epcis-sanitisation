@@ -93,9 +93,16 @@ def _sanitise_event(event, hash, hash_fct, dead_drop_url, config):
     sanitised_event["request_event_data_at"] = dead_drop_url
 
     for (field, hash_salt) in config.items():
+        # special handling of event id (use event hash)
         if field == "eventId":
-            sanitised_event["eventId"] = _normalise_hash_and_salt_if_necessary(hash, hash_fct, hash_salt)
+            sanitised_event[field] = _normalise_hash_and_salt_if_necessary(hash, hash_fct, hash_salt)
             continue
+        # special handling of event type
+        if field == "eventType":
+            sanitised_event[field] = _normalise_hash_and_salt_if_necessary(event[0], hash_fct, hash_salt)
+            continue
+
+        # handling of all other keys
         for key, value, children in event[2]:
             if key == field:
                 if not children:
@@ -105,6 +112,8 @@ def _sanitise_event(event, hash, hash_fct, dead_drop_url, config):
                     sanitised_event[key] = []
                     for (_, child_val, properties) in children:
                         sanitised_value = _normalise_hash_and_salt_if_necessary(child_val, hash_fct, hash_salt)
+
+                        # check if the field has a type, if so add it as a query parameter
                         type_query_params = [type for (name, type, []) in properties if name == 'type']
                         if type_query_params:
                             if len(type_query_params) > 1:
