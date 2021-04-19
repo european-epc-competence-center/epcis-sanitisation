@@ -30,6 +30,7 @@ from epcis_sanitiser import sanitiser
 import argparse
 import json
 import logging
+import os
 import sys
 from epcis_event_hash_generator import events_from_file_reader
 
@@ -59,7 +60,7 @@ def __command_line_parsing(args):
         "-b",
         "--batch",
         help="If given, write the output for each input file into a sibling output file "
-             "with the same name + '.sanitised.json' instead of stdout.",
+             "with the same name as the input file but file ending '.sanitised.json' instead of stdout.",
         action="store_true")
     parser.add_argument(
         "-d",
@@ -109,7 +110,7 @@ def main(argv):
         logging.debug(
             "\n\nEvents contained in '{}':\n{}".format(filename, events))
 
-        config = epcis_sanitiser.SANITIZED_FIELDS
+        config = epcis_sanitiser.SANITISED_FIELDS
 
         if args.sanitisation_config_file:
             with open(args.sanitisation_config_file, 'r') as file:
@@ -119,10 +120,14 @@ def main(argv):
         sanitised_events = sanitiser.sanitise_events(
             events=events, hashalg=args.algorithm, dead_drop_url=args.dead_drop_url, config=config)
 
-        print("\nSanitised Events:")
-        for event in sanitised_events:
-            print("\n")
-            print(event)
+        if args.batch:
+            with open(os.path.splitext(filename)[0] + '.sanitised.json', 'w') as outfile:
+                outfile.write("\n".join([str(event) for event in sanitised_events]) + "\n")
+        else:
+            print("\nSanitised Events:")
+            for event in sanitised_events:
+                print("\n")
+                print(event)
 
 
 # goto main if script is run as entrypoint

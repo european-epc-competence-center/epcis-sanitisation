@@ -10,7 +10,7 @@ If including an element with children, include all children and hash each one se
 This is the default used. Run the cli tool with '-c some_config.json' to load other values,
  in particular in order to set salts.
 """
-SANITIZED_FIELDS = {
+SANITISED_FIELDS = {
     "eventType": None,
     "eventId": "Salt",
     "eventTime": None,

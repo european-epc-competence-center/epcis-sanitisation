@@ -27,7 +27,7 @@ import logging
 import hashlib
 
 from epcis_event_hash_generator import hash_generator, dl_normaliser
-from epcis_sanitiser import SANITIZED_FIELDS
+from epcis_sanitiser import SANITISED_FIELDS
 
 
 def _hash_alg_to_fct(hashalg='sha256'):
@@ -57,7 +57,7 @@ def _hash_alg_to_fct(hashalg='sha256'):
     return hash_fct
 
 
-def sanitise_events(events, dead_drop_url, hashalg='sha256', config=SANITIZED_FIELDS):
+def sanitise_events(events, dead_drop_url, hashalg='sha256', config=SANITISED_FIELDS):
     """
     Calculate the sanitized event for each event in the list and return the list of sanitized events.
     """
