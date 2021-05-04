@@ -35,7 +35,7 @@ import sys
 from epcis_event_hash_generator import events_from_file_reader
 
 
-def __command_line_parsing(args):
+def __command_line_parsing(argv):
     logger_cfg = {
         "format":
             "%(asctime)s %(funcName)s (%(lineno)d) [%(levelname)s]:    %(message)s"
@@ -76,7 +76,7 @@ def __command_line_parsing(args):
         "and to None for including the clear text value without hashing"
     )
 
-    args = parser.parse_args(args)
+    args = parser.parse_args(argv)
 
     logger_cfg["level"] = getattr(logging, args.log)
     logging.basicConfig(**logger_cfg)

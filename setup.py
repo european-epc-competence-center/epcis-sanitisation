@@ -24,10 +24,14 @@ setuptools.setup(
     python_requires='>=3.6',
     entry_points={
         "console_scripts": [
-            "generator=epcis_event_hash_generator.main:main",
+            "cli=epcis_event_hash_generator.main:main",
+            "webservice=epcis_event_hash_generator.webservice:main"
         ]
     },
     install_requires=[
         'epcis_event_hash_generator>=1.4',
+        'fastapi>=0.63.0',
+        'uvicorn>=0.13.4',
+        'tinydb>=4.4.0'
     ],
 )
