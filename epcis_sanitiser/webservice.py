@@ -57,10 +57,22 @@ def redirect_to_docs():
     return RedirectResponse("/docs")
 
 
-@app.get("/event/{ni}")
-def get_sanitised_event(ni: str):
-    raise HTTPException(status_code=404, detail="Event not found")
-    # return {"item_id": item_id}
+@app.get("/event/{eventHash}")
+def get_sanitised_event(eventHash: str):
+    """
+    Takes the eventID without the ni:/// prefix and returns the matching
+    sanitised event, if any.
+    """
+    eventId = r"ni:///" + eventHash
+    logging.debug("looking for event %s", eventId)
+
+    Event = Query()
+    events = db.search(Event.eventId == eventId)
+    if events:
+        return events
+
+    raise HTTPException(
+        status_code=404, detail="No event with id {} found".format(eventId))
 
 
 @app.post("/sanitise_json_event/")
@@ -70,7 +82,7 @@ def sanitise_and_store_json_event(json_event: dict = Body(...)):
     """
     events = json_to_py.event_list_from_epcis_document_json(json_event)
 
-    return __sanitise_events(events)
+    return __sanitise_and_store_events(events)
 
 
 @app.post("/sanitise_xml_event/")
@@ -81,10 +93,10 @@ def sanitise_and_store_xml_event(xml_doc: XmlWrapper):
 
     events = xml_to_py.event_list_from_epcis_document_str(
         xml_doc.xml_epcis_document)
-    return __sanitise_events(events)
+    return __sanitise_and_store_events(events)
 
 
-def __sanitise_events(events):
+def __sanitise_and_store_events(events):
 
     UniqueDoc = Query()
     stored_config = db.search(UniqueDoc.id == "config")[0]
@@ -97,6 +109,9 @@ def __sanitise_events(events):
 
     sanitised_events = sanitiser.sanitise_events(
         events=events, hashalg=args["algorithm"], dead_drop_url=args["dead_drop_url"], config=config)
+
+    for event in sanitised_events:
+        db.insert(event)
 
     return {"sanitised_events": sanitised_events}
 
@@ -157,6 +172,7 @@ def __command_line_parsing(argv):
 
     logger_cfg["level"] = getattr(logging, args.log)
     logging.basicConfig(**logger_cfg)
+    logging.debug("Setting log level: %s(%s)", args.log, logger_cfg["level"])
 
     # print("Log messages above level: {}".format(logger_cfg["level"]))
 
