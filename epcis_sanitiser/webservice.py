@@ -64,11 +64,11 @@ def get_sanitised_event(ni: str):
 
 
 @app.post("/sanitise_json_event/")
-def sanitise_and_store_json_event(json_event: str = Body(...)):
+def sanitise_and_store_json_event(json_event: dict = Body(...)):
     """
     Post an epcis event in JSON format to store a sanitised version.
     """
-    events = json_to_py.event_list_from_epcis_document_str(json_event)
+    events = json_to_py.event_list_from_epcis_document_json(json_event)
 
     return __sanitise_events(events)
 

@@ -29,7 +29,7 @@ setuptools.setup(
         ]
     },
     install_requires=[
-        'epcis_event_hash_generator>=1.4',
+        'epcis_event_hash_generator>=1.6.2',
         'fastapi>=0.63.0',
         'uvicorn>=0.13.4',
         'tinydb>=4.4.0'

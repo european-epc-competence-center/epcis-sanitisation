@@ -7,6 +7,82 @@ As part of a colaborative approach to solvethe discovery problem and related rea
 
 The EPCIS document parsing and hashing functionality of this project is imported from https://github.com/RalphTro/epcis-event-hash-generator . See there for details.
 
+## CLI Usage
+
+Run the CLI like
+```
+epcis_sanitiser/__main__.py tests/events/ReferenceEventHashAlgorithm.xml
+```
+Run with `-h` for usage information.
+
+## Web Service Usage
+
+Start the web service like
+```
+epcis_sanitiser/webservice.py -p 8000
+```
+Run with `-h` for usage information.
+
+### Example XML Query
+```
+curl -X 'POST' \
+  'http://127.0.0.1:8000/sanitise_xml_event/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "xml_epcis_document": "<?xml version=\"1.0\" ?> <epcis:EPCISDocument xmlns:epcis=\"urn:epcglobal:epcis:xsd:1\"   xmlns:https=\"https://ns.example.com/epcis\"    xmlns:example=\"https://ns.example.com/epcis\" schemaVersion=\"1.2\" creationDate=\"2020-03-03T13:07:51.709Z\">    <EPCISBody>        <EventList>            <ObjectEvent>                <eventTime>2020-03-04T11:00:30.000+01:00</eventTime>                <recordTime>2020-03-04T11:00:30.999+01:00</recordTime>                <eventTimeZoneOffset>+01:00</eventTimeZoneOffset>                <epcList>                    <epc>urn:epc:id:sscc:4012345.0000000333</epc>                    <epc>urn:epc:id:sscc:4012345.0000000111</epc>                    <epc>urn:epc:id:sscc:4012345.0000000222</epc>                </epcList>                <action>OBSERVE</action>                <bizStep>urn:epcglobal:cbv:bizstep:departing</bizStep>                <readPoint>                    <id>urn:epc:id:sgln:4012345.00011.987</id>                </readPoint>                <example:myField1>                    <example:mySubField1>2</example:mySubField1>                    <example:mySubField2>5</example:mySubField2>                </example:myField1>                <https:myField2>0</https:myField2>                <https:myField3>                    <example:mySubField3>3</example:mySubField3>                    <example:mySubField3>1</example:mySubField3>                </https:myField3>            </ObjectEvent>        </EventList>    </EPCISBody></epcis:EPCISDocument>"
+}'
+```
+
+### Example JSON Query
+```
+curl -X 'POST' \
+  'http://127.0.0.1:8000/sanitise_json_event/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "@context": "https://id.gs1.org/epcis-context.jsonld",
+  "isA": "EPCISDocument",
+  "creationDate": "2020-03-03T13:07:51.709+00:00",
+  "schemaVersion": 1.2,
+  "format": "application/ld+json",
+  "epcisBody": {
+    "eventList": [
+      {
+        "isA": "ObjectEvent",
+        "eventTime": "2020-03-04T11:00:30.000+01:00",
+        "eventTimeZoneOffset": "+01:00",
+        "recordTime": "2020-03-04T11:00:30.999+01:00",
+        "epcList": [
+          "urn:epc:id:sscc:4012345.0000000333",
+          "urn:epc:id:sscc:4012345.0000000111",
+          "urn:epc:id:sscc:4012345.0000000222"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:departing",
+        "readPoint": {"id": "urn:epc:id:sgln:4012345.00011.987"},
+        "example:myField1": {
+          "@xmlns:example": "https://ns.example.com/epcis",
+          "example:mySubField1": "2",
+          "example:mySubField2": "5"
+        },
+        "example:myField2": {
+          "@xmlns:example": "https://ns.example.com/epcis",
+          "#text": "0"
+        },
+        "example:myField3": {
+          "@xmlns:example": "https://ns.example.com/epcis",
+          "example:mySubField3": [
+            "3",
+            "1"
+          ]
+        }
+      }
+    ]
+  }
+}'
+```
+
 ## License
 
 Copyright (c) 2020-2021 GS1 Germany, European EPC Competence Center GmbH (EECC)
