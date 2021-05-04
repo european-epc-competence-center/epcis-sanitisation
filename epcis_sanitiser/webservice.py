@@ -75,6 +75,24 @@ def get_sanitised_event(eventHash: str):
         status_code=404, detail="No event with id {} found".format(eventId))
 
 
+@app.get("/events_for_epc/{epcHash}")
+def get_sanitised_event(epcHash: str):
+    """
+    Takes the epc NI without the ni:/// prefix and returns all matching
+    sanitised events, if any.
+    """
+    epc = r"ni:///" + epcHash
+    logging.debug("looking for event with epc %s", epc)
+
+    Event = Query()
+    events = db.search(Event.epcList.test(lambda val: epc in val))
+    if events:
+        return events
+
+    raise HTTPException(
+        status_code=404, detail="No event with id {} found".format(eventId))
+
+
 @app.post("/sanitise_json_event/")
 def sanitise_and_store_json_event(json_event: dict = Body(...)):
     """

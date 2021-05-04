@@ -23,7 +23,7 @@ epcis_sanitiser/webservice.py -p 8000
 ```
 Run with `-h` for usage information.
 
-### Example XML Query
+### Example XML: POST
 ```
 curl -X 'POST' \
   'http://127.0.0.1:8000/sanitise_xml_event/' \
@@ -34,7 +34,7 @@ curl -X 'POST' \
 }'
 ```
 
-### Example JSON Query
+### Example: JSON POST
 ```
 curl -X 'POST' \
   'http://127.0.0.1:8000/sanitise_json_event/' \
@@ -81,6 +81,17 @@ curl -X 'POST' \
     ]
   }
 }'
+```
+
+### Example: EPC query
+
+```
+http://127.0.0.1:8000/events_for_epc/sha-256%3B1ac005312f9635d448b8ccb7a45f8bba8cccd257025aa06cd1f6445f79cb957c
+```
+
+### Example: Event ID query
+```
+http://127.0.0.1:8000/event/sha-256%3B8b089483649d983ea03cfc8d6743beba644eb1cfb5bfc654ec8484a98263c901
 ```
 
 ## License
