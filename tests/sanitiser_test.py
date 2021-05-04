@@ -48,9 +48,12 @@ def test_sanitisation(caplog):
         'bizStep': 'urn:epcglobal:cbv:bizstep:departing',
         'action': 'OBSERVE',
         'epcList': [
-            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000111')),
-            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000222')),
-            hash_fct(dl_normaliser.normaliser('urn:epc:id:sscc:4012345.0000000333'))
+            hash_fct(dl_normaliser.normaliser(
+                'urn:epc:id:sscc:4012345.0000000111')),
+            hash_fct(dl_normaliser.normaliser(
+                'urn:epc:id:sscc:4012345.0000000222')),
+            hash_fct(dl_normaliser.normaliser(
+                'urn:epc:id:sscc:4012345.0000000333'))
         ],
         'request_event_data_at': _dead_drop_url
     }
@@ -94,15 +97,15 @@ def test_type_parameters():
         'eventType': 'ObjectEvent',
         'request_event_data_at': _dead_drop_url,
         'sourceList': [
-            'ni:///sha-256;4628a595d99c04a7452516059fdc4a0ffd86007dfdcd62801924472a53751098?type=somewhere'
+            'ni:///sha-256;4628a595d99c04a7452516059fdc4a0ffd86007dfdcd62801924472a53751098?type=somewhere'  # noqa: E501
         ],
         'destinationList': [
-            'ni:///sha-256;12ec52904c050fb69dc72704f59050491caf1791353ad7ad604832ad6b0e2f26?type=urn:epcglobal:cbv:sdt:owning_party'
+            'ni:///sha-256;12ec52904c050fb69dc72704f59050491caf1791353ad7ad604832ad6b0e2f26?type=urn:epcglobal:cbv:sdt:owning_party'  # noqa: E501
         ],
         'bizTransactionList': [
-            'ni:///sha-256;9ec23ce8422f593d898ad0612c3332dae206fc7dd323a6359a6f3d99db635a84?type=urn:epcglobal:cbv:btt:po'
+            'ni:///sha-256;9ec23ce8422f593d898ad0612c3332dae206fc7dd323a6359a6f3d99db635a84?type=urn:epcglobal:cbv:btt:po'  # noqa: E501
         ],
-        'eventId': 'ni:///sha-256;f2599364f8cf3b8a85be9e86a71ede0881caf24ada227fc74a99f0ceaae05c64',
+        'eventId': 'ni:///sha-256;f2599364f8cf3b8a85be9e86a71ede0881caf24ada227fc74a99f0ceaae05c64',  # noqa: E501
     }
 
     sanitised = sanitiser.sanitise_events(
