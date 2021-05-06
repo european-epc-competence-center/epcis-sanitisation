@@ -76,7 +76,7 @@ def get_sanitised_event(eventHash: str):
 
 
 @app.get("/events_for_epc/{epcHash}")
-def get_sanitised_event(epcHash: str):
+def get_sanitised_event_by_epc(epcHash: str):
     """
     Takes the epc NI without the ni:/// prefix and returns all matching
     sanitised events, if any.
@@ -90,7 +90,7 @@ def get_sanitised_event(epcHash: str):
         return events
 
     raise HTTPException(
-        status_code=404, detail="No event with id {} found".format(eventId))
+        status_code=404, detail="No event with id {} found".format(epcHash))
 
 
 @app.post("/sanitise_json_event/")
