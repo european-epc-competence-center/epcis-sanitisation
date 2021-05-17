@@ -99,7 +99,6 @@ def find_request(requesting: str) -> List[Request]:
     logging.debug("looking for '%s'", requesting)
     matches = db.search(Query().requesting == requesting)
     logging.debug("found %s", matches)
-    logging.debug("all: %s", db.all())
     if matches:
         return matches
 
@@ -118,7 +117,7 @@ def find_all_requests() -> List[Request]:
 
 def __remove_old_requests():
     removed = db.remove(Query().valid_until.test(
-        lambda valid: datetime.strptime(valid, DATE_FORMAT) > datetime.now()))
+        lambda valid: datetime.strptime(valid, DATE_FORMAT) < datetime.now()))
     logging.debug("removed old requests: %s", removed)
 
 
