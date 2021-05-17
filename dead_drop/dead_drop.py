@@ -34,9 +34,10 @@ from tinydb import TinyDB, Query
 from datetime import datetime, timedelta
 
 DEFAULT_LIFETIME_IN_DAYS = 30
+DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 app = FastAPI()
-db = TinyDB('db.json')
+db = TinyDB('dead_drop_db.json')
 
 
 class Adress(BaseModel):
@@ -74,7 +75,7 @@ class Request(BaseModel):
         if self.auth:
             re["auth"] = self.auth.asdict()
         if self.valid_until:
-            re["valid_until"] = str(self.valid_until)
+            re["valid_until"] = self.valid_until.strftime(DATE_FORMAT)
 
         return re
 
@@ -95,7 +96,10 @@ def store_request(request: Request) -> str:
 @app.get("/request/{requesting}")
 def find_request(requesting: str) -> List[Request]:
     __remove_old_requests()
+    logging.debug("looking for '%s'", requesting)
     matches = db.search(Query().requesting == requesting)
+    logging.debug("found %s", matches)
+    logging.debug("all: %s", db.all())
     if matches:
         return matches
 
@@ -104,7 +108,8 @@ def find_request(requesting: str) -> List[Request]:
 
 
 def __remove_old_requests():
-    removed = db.remove(Query().valid_until < datetime.now())
+    removed = db.remove(Query().valid_until.test(
+        lambda valid: datetime.strptime(valid, DATE_FORMAT) > datetime.now()))
     logging.debug("removed old requests: %s", removed)
 
 
