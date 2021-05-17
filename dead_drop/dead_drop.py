@@ -141,6 +141,11 @@ def __command_line_parsing(argv):
         help="Development option: automatically reload if python sources change",
         action="store_true",
         default=False)
+    parser.add_argument(
+        "-R",
+        "--root-path",
+        help=" Set the ASGI root_path for applications submounted below a given URL path."
+    )
 
     args = parser.parse_args(argv)
 
@@ -157,12 +162,16 @@ def main(argv):
 
     args = vars(__command_line_parsing(argv))
 
-    uvicorn.run("dead_drop:app",
-                host=args["host"],
-                port=int(args["port"]),
-                log_level=args["log"].lower(),
-                reload=args["reload"]
-                )
+    uvicorn_args = {"host": args["host"],
+                    "port": int(args["port"]),
+                    "log_level": args["log"].lower(),
+                    "reload": args["reload"]
+                    }
+
+    if args["root_path"]:
+        uvicorn_args["root_path"] = args["root_path"]
+
+    uvicorn.run("dead_drop:app", **uvicorn_args)
 
 
 # start uvicorn if run as main

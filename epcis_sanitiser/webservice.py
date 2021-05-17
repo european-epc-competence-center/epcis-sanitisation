@@ -185,14 +185,17 @@ def __command_line_parsing(argv):
         help="Development option: automatically reload if python sources change",
         action="store_true",
         default=False)
+    parser.add_argument(
+        "-R",
+        "--root-path",
+        help=" Set the ASGI root_path for applications submounted below a given URL path."
+    )
 
     args = parser.parse_args(argv)
 
     logger_cfg["level"] = getattr(logging, args.log)
     logging.basicConfig(**logger_cfg)
     logging.debug("Setting log level: %s(%s)", args.log, logger_cfg["level"])
-
-    # print("Log messages above level: {}".format(logger_cfg["level"]))
 
     return args
 
@@ -213,12 +216,16 @@ def main(argv):
     db.remove(UniqueDoc.id == "config")
     db.insert({"id": "config", "args": args, "config": config})
 
-    uvicorn.run("webservice:app",
-                host=args["host"],
-                port=int(args["port"]),
-                log_level=args["log"].lower(),
-                reload=args["reload"]
-                )
+    uvicorn_args = {"host": args["host"],
+                    "port": int(args["port"]),
+                    "log_level": args["log"].lower(),
+                    "reload": args["reload"]
+                    }
+
+    if args["root_path"]:
+        uvicorn_args["root_path"] = args["root_path"]
+
+    uvicorn.run("webservice:app", **uvicorn_args)
 
 
 # start uvicorn if run as main
