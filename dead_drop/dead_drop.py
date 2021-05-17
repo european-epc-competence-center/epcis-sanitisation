@@ -107,6 +107,15 @@ def find_request(requesting: str) -> List[Request]:
         status_code=404, detail="No requests requesting '{}' found".format(requesting))
 
 
+@app.get("/request")
+def find_all_requests() -> List[Request]:
+    """Return all requests. Caution: A production implementation might not want
+    to offer this functionality as it potentially exposes all requesting parties.
+    """
+    __remove_old_requests()
+    return db.all()
+
+
 def __remove_old_requests():
     removed = db.remove(Query().valid_until.test(
         lambda valid: datetime.strptime(valid, DATE_FORMAT) > datetime.now()))
