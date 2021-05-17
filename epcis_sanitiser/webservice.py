@@ -54,7 +54,7 @@ class XmlWrapper(BaseModel):
 
 @app.get("/", include_in_schema=False)
 def redirect_to_docs():
-    return RedirectResponse("/docs")
+    return RedirectResponse("docs")
 
 
 @app.get("/event/{eventHash}")
