@@ -109,4 +109,4 @@ venv.bak/
 .vscode/*
 
 # project specific
-db.json
+*db.json
