@@ -23,6 +23,13 @@ epcis_sanitiser/webservice.py -p 8000
 ```
 Run with `-h` for usage information.
 
+Instances of those webservices for demo/testing purposes are running at
+
+- https://discovery.epcat.de/docs
+- https://discovery.epcat.de/dead_drop/docs
+
+Note that these demo services may wipe there database or be unavaiable any time. Do not use beyond ad hoc testing.
+
 ### Example XML: POST
 ```
 curl -X 'POST' \
