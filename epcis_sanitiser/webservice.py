@@ -32,6 +32,7 @@ from epcis_event_hash_generator import xml_to_py
 
 from fastapi import FastAPI, HTTPException, Body, Request
 from fastapi.responses import RedirectResponse
+from fastapi.openapi.utils import get_openapi
 
 from pydantic import BaseModel
 
@@ -134,12 +135,12 @@ async def sanitise_and_store_xml_event(request: Request):
     return __sanitise_and_store_events(events)
 
 
-__set_logging_cfg_from_db():
+def __set_logging_cfg_from_db():
     UniqueDoc = Query()
     stored_config = db.search(UniqueDoc.id == "config")[0]
     args = stored_config["args"]
     logging.basicConfig(**__logger_cfg(args["log"]))
-    logging.debug("Setting log level: %s",args["log"])
+    logging.debug("Setting log level: %s", args["log"])
 
 
 def __sanitise_and_store_events(events):
@@ -230,6 +231,26 @@ def __command_line_parsing(argv):
                   __logger_cfg(args.log)["level"])
 
     return args
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="EPCIS Sanitisation Demonstration API",
+        version="1.0.0",
+        description="This is a Webservice to calculate <a href='https://github.com/european-epc-competence-center/epcis-sanitisation'>sanitised EPCIS events</a>.",
+        routes=app.routes,
+    )
+    openapi_schema["info"]["x-logo"] = {
+        "url": "https://eecc.info/img/eecc/logo_213x182.png"
+    }
+    openapi_schema["paths"]["/sanitise_xml_event/"]["post"]["requestBody"] = {"content": {"application/xml": {"schema": {"title": "XML EPCIS Document", "type": "string"}}},"required": True}
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
 
 
 def main(argv):
