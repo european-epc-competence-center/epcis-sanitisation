@@ -54,7 +54,7 @@ def redirect_to_docs():
     return RedirectResponse("docs")
 
 
-@app.get("/event")
+@app.get("/db_dump")
 def get_all_sanitised_event():
     """
     Get a complete DB dump including ALL events. This should only be used for debugging purposes, since no pagination is implemented.
@@ -85,6 +85,8 @@ def get_sanitised_event_by_epc(epcHash: str):
     """
     Takes the epc NI without the ni:/// prefix and returns all matching
     sanitised events, if any.
+    This lookup scans in epc, input, output, child and parent list,
+    as well as in the child, input and output quantity lists.
     """
     __set_logging_cfg_from_db()
     epc = r"ni:///" + epcHash
@@ -96,6 +98,11 @@ def get_sanitised_event_by_epc(epcHash: str):
     events += db.search(Event.outputEPCList.test(lambda val: epc in val))
     events += db.search(Event.childEPCs.test(lambda val: epc in val))
     events += db.search(Event.parentID == epc)
+
+    events += db.search(Event.quantityList.test(lambda val: epc in val))
+    events += db.search(Event.childQuantityList.test(lambda val: epc in val))
+    events += db.search(Event.inputQuantityList.test(lambda val: epc in val))
+    events += db.search(Event.outputQuantityList.test(lambda val: epc in val))
 
     if events:
         return events
