@@ -30,7 +30,7 @@ from epcis_sanitiser import sanitiser
 from epcis_event_hash_generator import json_to_py
 from epcis_event_hash_generator import xml_to_py
 
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, Request
 from fastapi.responses import RedirectResponse
 
 from pydantic import BaseModel
@@ -46,10 +46,6 @@ from tinydb import TinyDB, Query
 
 app = FastAPI()
 db = TinyDB('db.json')
-
-
-class XmlWrapper(BaseModel):
-    xml_epcis_document: str
 
 
 @app.get("/", include_in_schema=False)
@@ -89,6 +85,7 @@ def get_sanitised_event_by_epc(epcHash: str):
     Takes the epc NI without the ni:/// prefix and returns all matching
     sanitised events, if any.
     """
+    __set_logging_cfg_from_db()
     epc = r"ni:///" + epcHash
     logging.debug("looking for event with epc %s", epc)
 
@@ -107,24 +104,42 @@ def get_sanitised_event_by_epc(epcHash: str):
 
 
 @app.post("/sanitise_json_event/")
-def sanitise_and_store_json_event(json_event: dict = Body(...)):
+def sanitise_and_store_json_event(json_events: dict = Body(...)):
     """
     Post an epcis event in JSON format to store a sanitised version.
     """
-    events = json_to_py.event_list_from_epcis_document_json(json_event)
+    __set_logging_cfg_from_db()
+    logging.debug("Sanitising JSON events %s", json_events)
+    events = json_to_py.event_list_from_epcis_document_json(json_events)
 
     return __sanitise_and_store_events(events)
 
 
 @app.post("/sanitise_xml_event/")
-def sanitise_and_store_xml_event(xml_doc: XmlWrapper):
+async def sanitise_and_store_xml_event(request: Request):
     """
     Post an epcis event in XML format to store a sanitised version.
     """
+    __set_logging_cfg_from_db()
 
-    events = xml_to_py.event_list_from_epcis_document_str(
-        xml_doc.xml_epcis_document)
+    body = await request.body()
+    if not body:
+        raise HTTPException(
+            status_code=400, detail="Expecting XML Body")
+
+    xml_doc = body.decode('utf-8')
+    logging.debug("Sanitising XML events:\n %s", xml_doc)
+
+    events = xml_to_py.event_list_from_epcis_document_str(xml_doc)
     return __sanitise_and_store_events(events)
+
+
+__set_logging_cfg_from_db():
+    UniqueDoc = Query()
+    stored_config = db.search(UniqueDoc.id == "config")[0]
+    args = stored_config["args"]
+    logging.basicConfig(**__logger_cfg(args["log"]))
+    logging.debug("Setting log level: %s",args["log"])
 
 
 def __sanitise_and_store_events(events):
@@ -147,11 +162,15 @@ def __sanitise_and_store_events(events):
     return {"sanitised_events": sanitised_events}
 
 
+def __logger_cfg(log_lvl):
+    level = getattr(logging, log_lvl)
+    re = {
+        "format": "%(asctime)s %(funcName)s (%(lineno)d) [%(levelname)s]: %(message)s"}
+    re["level"] = level
+    return re
+
+
 def __command_line_parsing(argv):
-    logger_cfg = {
-        "format":
-            "%(asctime)s %(funcName)s (%(lineno)d) [%(levelname)s]:    %(message)s"
-    }
 
     parser = argparse.ArgumentParser(
         description="Run Webservice that generates and stores sanitised EPCIS events.")
@@ -206,9 +225,9 @@ def __command_line_parsing(argv):
 
     args = parser.parse_args(argv)
 
-    logger_cfg["level"] = getattr(logging, args.log)
-    logging.basicConfig(**logger_cfg)
-    logging.debug("Setting log level: %s(%s)", args.log, logger_cfg["level"])
+    logging.basicConfig(**__logger_cfg(args.log))
+    logging.debug("Setting log level: %s(%s)", args.log,
+                  __logger_cfg(args.log)["level"])
 
     return args
 
