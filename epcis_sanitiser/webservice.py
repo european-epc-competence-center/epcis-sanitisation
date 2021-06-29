@@ -34,8 +34,6 @@ from fastapi import FastAPI, HTTPException, Body, Request
 from fastapi.responses import RedirectResponse
 from fastapi.openapi.utils import get_openapi
 
-from pydantic import BaseModel
-
 import uvicorn
 import argparse
 import sys
@@ -57,7 +55,8 @@ def redirect_to_docs():
 @app.get("/db_dump")
 def get_all_sanitised_event():
     """
-    Get a complete DB dump including ALL events. This should only be used for debugging purposes, since no pagination is implemented.
+    Get a complete DB dump including ALL events.
+    This should only be used for debugging purposes, since no pagination is implemented.
     """
     return db.all()
 
@@ -246,13 +245,19 @@ def custom_openapi():
     openapi_schema = get_openapi(
         title="EPCIS Sanitisation Demonstration API",
         version="1.0.0",
-        description="This is a Webservice to calculate <a href='https://github.com/european-epc-competence-center/epcis-sanitisation'>sanitised EPCIS events</a>.",
+        description="This is a Webservice to calculate " +
+        "<a href='https://github.com/european-epc-competence-center/epcis-sanitisation'>sanitised EPCIS events</a>.",
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {
         "url": "https://eecc.info/img/eecc/logo_213x182.png"
     }
-    openapi_schema["paths"]["/sanitise_xml_event/"]["post"]["requestBody"] = {"content": {"application/xml": {"schema": {"title": "XML EPCIS Document", "type": "string"}}},"required": True}
+    openapi_schema["paths"]["/sanitise_xml_event/"]["post"]["requestBody"] = {
+        "content": {
+            "application/xml": {"schema": {"title": "XML EPCIS Document", "type": "string"}}
+        },
+        "required": True
+    }
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
