@@ -57,6 +57,14 @@ def redirect_to_docs():
     return RedirectResponse("docs")
 
 
+@app.get("/event")
+def get_all_sanitised_event():
+    """
+    Get a complete DB dump including ALL events. This should only be used for debugging purposes, since no pagination is implemented.
+    """
+    return db.all()
+
+
 @app.get("/event/{eventHash}")
 def get_sanitised_event(eventHash: str):
     """
@@ -86,6 +94,11 @@ def get_sanitised_event_by_epc(epcHash: str):
 
     Event = Query()
     events = db.search(Event.epcList.test(lambda val: epc in val))
+    events += db.search(Event.inputEPCList.test(lambda val: epc in val))
+    events += db.search(Event.outputEPCList.test(lambda val: epc in val))
+    events += db.search(Event.childEPCs.test(lambda val: epc in val))
+    events += db.search(Event.parentID == epc)
+
     if events:
         return events
 
