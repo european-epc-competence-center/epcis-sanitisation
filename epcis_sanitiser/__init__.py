@@ -27,8 +27,8 @@ DEFAULT_CONFIG = {
         "inputQuantityList": "",
         "outputQuantityList": "",
         "bizStep": None,
-        "sourceList": "sourceSalt",
-        "destinationList": "destinationSalt",
+        "sourceList": "urn:epc:id:gdti:0614141.00002.PO-123",
+        "destinationList": "urn:epc:id:gdti:0614141.00002.PO-123",
         "bizTransactionList": ""
     }
 }
