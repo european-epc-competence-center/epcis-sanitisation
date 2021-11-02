@@ -17,7 +17,7 @@ DEFAULT_CONFIG = {
         "eventId": "Salt",
         "eventTime": None,
         "action": None,
-        "parentID": "",
+        "parentID": "Salt",
         "epcList": "",
         "inputEPCList": "",
         "outputEPCList": "",
@@ -27,8 +27,8 @@ DEFAULT_CONFIG = {
         "inputQuantityList": "",
         "outputQuantityList": "",
         "bizStep": None,
-        "sourceList": "",
-        "destinationList": "",
+        "sourceList": "source",
+        "destinationList": "destination",
         "bizTransactionList": ""
     }
 }
