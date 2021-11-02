@@ -27,8 +27,8 @@ DEFAULT_CONFIG = {
         "inputQuantityList": "",
         "outputQuantityList": "",
         "bizStep": None,
-        "sourceList": "source",
-        "destinationList": "destination",
+        "sourceList": "sourceSalt",
+        "destinationList": "destinationSalt",
         "bizTransactionList": ""
     }
 }
