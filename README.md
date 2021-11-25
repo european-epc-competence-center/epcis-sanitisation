@@ -7,6 +7,12 @@ As part of a collaborative approach to solve the discovery problem and related r
 
 The EPCIS document parsing and hashing functionality of this project is imported from https://github.com/RalphTro/epcis-event-hash-generator. See there for details.
 
+## Background
+
+Supply chain traceability systems have become central in many industries, such as electronics, apparel, food and pharmaceuticals. However, traceability data is often highly commercial sensitive, and firms seek to keep it confidential to protect their competitive advantage. This is at odds with calls for greater transparency that would, for example, enable product passports to enhance reusability and recyclability of products or data-based product specific CO2 footprint calculations. Therefore, a solution to this conflict of interest known as the discovery problem is needed. 
+
+This software prototype provides a vital building block to accomplish this goal in sanitising such sensitive traceability data (formatted as EPCIS events) through hashing contained business object/party identifiers as well as stripping off dispensable data. Thereby, it enables interested parties to investigate and demonstrate that sanitised data can be used to confirm the authenticity of products and provide a basis for anonymously verifying the rights of an actor to access detailed traceability data. 
+
 ## CLI Usage
 
 Run the CLI like
