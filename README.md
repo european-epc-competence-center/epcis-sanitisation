@@ -1,4 +1,4 @@
-# EPCIS Sanitisation
+# EPCIS Sanitisation Prototype
 
 [![Build Status](https://github.com/european-epc-competence-center/epcis-sanitisation/workflows/Unit%20Tests/badge.svg?v=42)](https://github.com/RalphTro/epcis-event-hash-generator/actions?query=workflow%3A%22Unit+Tests%22)
 [![Linter Status](https://github.com/european-epc-competence-center/epcis-sanitisation/workflows/Code%20Style/badge.svg)](https://github.com/RalphTro/epcis-event-hash-generator/actions?query=workflow%3A%22Code+Style%22)
