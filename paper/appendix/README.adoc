@@ -1,28 +1,24 @@
-= A solution approach for the anonymous sharing of sensitive supply chain traceability data
+= A solution approach for the anonymous sharing of sensitive supply chain traceability data - Appendix
 Rob Glew <rg522@cam.ac.uk>; Ralph Tröger <ralph.troeger@gs1.de>; Sebastian Schmitter <sebastian.schmittner@eecc.de>
-Appendix
 :doctype: article
 :icons: font
 :title-page:
 :homepage: https://github.com/european-epc-competence-center/epcis-sanitisation
 :xrefstyle: short
 :imagesdir: ./
-:listing-caption: Listing
+:listing-caption: Code Block
 
-
-== Appendix
-
-=== Sanitisation Schematic
+== Sanitisation and Hashing of Example Events
 
 In the sanitisation process, all unnecessary data is removed from the event and then any identifiable or possibly sensitive information is obfuscated by hashing. Hashed data is formatted according to https://datatracker.ietf.org/doc/html/rfc6920[RFC6920], i.e. a prefix like “ni://sha-256;” indicates the hashing algorithm (here sha-256). The sanitised and hashed event data is then published through the discovery service, with anyone able to see it but unable to extract sensitive information.
 
 [[Layers]]
-.Example for an EPCIS event being sanitised (black arrow) and hashed (blue arrow)
+.Graphical Example for an EPCIS event being sanitised (black arrow) and hashed (blue arrow)
 image::sanitisation_and_hashing.png[pdfwidth=95%,align="center"]
 
 
-==== Example of a Full EPCIS Shipping Event
-Figures A2 and A3 show the sanitisation process for a shipping event.
+=== Shipping Event
+<<ShippingEvent>> shows a full EPCIS shipping event and <<SanitisedShippingEvent>> the corresponding sanitised and hashed data.
 
 [[ShippingEvent]]
 .Example for an EPCIS shipping event
@@ -61,7 +57,7 @@ Figures A2 and A3 show the sanitisation process for a shipping event.
 ----
 
 [[SanitisedShippingEvent]]
-.Santised <<ShippingEvent>> showing the 'request data at' deap drop solution
+.The santised and hashed event from <<ShippingEvent>>. Also exemplifies the 'request data at' deap drop solution
 [source,json]
 ----
 {
@@ -87,6 +83,9 @@ Figures A2 and A3 show the sanitisation process for a shipping event.
 ----
 
 
+=== Example of a Full EPCIS Shipping Event
+
+<<ReceivingEvent>> shows a full EPCIS shipping event and <<SanitisedReceivingEvent>> the corresponding sanitised and hashed data.
 
 [[ReceivingEvent]]
 .Example for an EPCIS receiving event
@@ -125,10 +124,8 @@ Figures A2 and A3 show the sanitisation process for a shipping event.
 ----
 
 
-
-
-[[SanitisedShippingEvent]]
-.Santised <<ReceivingEvent>>
+[[SanitisedReceivingEvent]]
+.The santised and hashed event from <<ReceivingEvent>>
 [source,json]
 ----
 {
@@ -152,4 +149,12 @@ Figures A2 and A3 show the sanitisation process for a shipping event.
   ]
 }
 ----
+
+== Chain Navigation
+
+**TBD: Why do we normalize to DL form?**
+
+The sanitised and hashed data in the above examples <<SanitisedShippingEvent>> and <<SanitisedReceivingEvent>> is shared through the Discovery Service.
+Anyone who wants to obtain information about the shipment with the id `urn:epc:id:sscc:4023333.0222222222` (see <<ShippingEvent>>) can now
+hash the id, which by the GS1 rules for hashing ids means converting it to digital link form `https://id.gs1.org/00/40233332222222222` and then applying the SHA256 algorithm to get `bd40a15ce952f4a12702b5290fe6ac88db2ce6720c03031c2cfd0c9165229c0a` (see <<SanitisedShippingEvent>>).
 
