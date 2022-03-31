@@ -11,7 +11,7 @@ This is the default used. Run the cli tool with '-c some_config.json' to load ot
  in particular in order to set salts.
 """
 DEFAULT_CONFIG = {
-    "dead_drop_url": "",
+    "dead_drop_url": "https://discovery.epcat.de/dead_drop",
     "sanitised_fields": {
         "eventType": None,
         "eventId": None,
