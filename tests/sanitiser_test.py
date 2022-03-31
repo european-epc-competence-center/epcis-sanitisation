@@ -5,7 +5,7 @@ except ImportError:
 
 from epcis_sanitiser import sanitiser
 
-from epcis_event_hash_generator import hash_generator, dl_normaliser
+from epcis_event_hash_generator import hash_generator
 
 import logging
 import hashlib
@@ -43,17 +43,14 @@ def test_sanitisation(caplog):
 
     expected = {
         'eventType': 'ObjectEvent',
-        'eventId': hash_fct(hash_generator.epcis_hashes_from_events(events)[0] + "Salt"),
+        'eventId': hash_generator.epcis_hashes_from_events(events)[0],
         'eventTime': '2020-03-04T11:00:30.000+01:00',
         'bizStep': 'urn:epcglobal:cbv:bizstep:departing',
         'action': 'OBSERVE',
         'epcList': [
-            hash_fct(dl_normaliser.normaliser(
-                'urn:epc:id:sscc:4012345.0000000111')),
-            hash_fct(dl_normaliser.normaliser(
-                'urn:epc:id:sscc:4012345.0000000222')),
-            hash_fct(dl_normaliser.normaliser(
-                'urn:epc:id:sscc:4012345.0000000333'))
+            hash_fct('urn:epc:id:sscc:4012345.0000000111'),
+            hash_fct('urn:epc:id:sscc:4012345.0000000222'),
+            hash_fct('urn:epc:id:sscc:4012345.0000000333')
         ],
         'request_event_data_at': _dead_drop_url
     }
@@ -71,7 +68,7 @@ def test_type_parameters():
                    [
                        ('bizTransactionList', '',
                         [
-                            ('bizTransaction', 'http://transaction.acme.com/po/12345678',
+                            ('bizTransaction', 'urn:epc:id:gdti:0614141.00002.PO-123',
                              [
                                  ('type', 'urn:epcglobal:cbv:btt:po', [])
                              ])
@@ -93,19 +90,27 @@ def test_type_parameters():
                    ]),
               ])
 
+    """
+    $ echo -n "urn:epc:id:pgln:0614141.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b  -
+    $ echo -n "urn:epc:id:pgln:4012345.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    6fdc0ccc986c941a65c584d6181c1fbca8c29e0e9a0dc0196e83c8c4ddf96f54  -
+    $ echo -n "urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38  -
+    """
     expected = {
         'eventType': 'ObjectEvent',
         'request_event_data_at': _dead_drop_url,
         'sourceList': [
-            'ni:///sha-256;4628a595d99c04a7452516059fdc4a0ffd86007dfdcd62801924472a53751098?type=somewhere'  # noqa: E501
+            'ni:///sha-256;6fdc0ccc986c941a65c584d6181c1fbca8c29e0e9a0dc0196e83c8c4ddf96f54?type=somewhere'  # noqa: E501
         ],
         'destinationList': [
-            'ni:///sha-256;12ec52904c050fb69dc72704f59050491caf1791353ad7ad604832ad6b0e2f26?type=urn:epcglobal:cbv:sdt:owning_party'  # noqa: E501
+            'ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:owning_party'  # noqa: E501
         ],
         'bizTransactionList': [
-            'ni:///sha-256;9ec23ce8422f593d898ad0612c3332dae206fc7dd323a6359a6f3d99db635a84?type=urn:epcglobal:cbv:btt:po'  # noqa: E501
+            'ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po'  # noqa: E501
         ],
-        'eventId': 'ni:///sha-256;f2599364f8cf3b8a85be9e86a71ede0881caf24ada227fc74a99f0ceaae05c64',  # noqa: E501
+        'eventId': 'ni:///sha-256;e869d45091834b775158e269ba07bed1acbc4f3fcc727a0106e34126f17b187e?ver=CBV2.0',  # noqa: E501
     }
 
     sanitised = sanitiser.sanitise_events(

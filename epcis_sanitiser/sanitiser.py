@@ -26,7 +26,7 @@ except ImportError:
 import logging
 import hashlib
 
-from epcis_event_hash_generator import hash_generator, dl_normaliser
+from epcis_event_hash_generator import hash_generator
 from epcis_sanitiser import DEFAULT_CONFIG
 
 
@@ -79,9 +79,6 @@ def sanitise_events(events, dead_drop_url, hashalg='sha256', config=DEFAULT_CONF
 
 
 def _normalise_hash_and_salt_if_necessary(value, hash_fct, hash_salt):
-    normalised = dl_normaliser.normaliser(value)
-    if normalised:
-        value = normalised
     if hash_salt is None:
         return value
     return hash_fct(value + hash_salt)

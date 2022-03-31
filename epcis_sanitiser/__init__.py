@@ -5,7 +5,7 @@ The second parameter (value) is
 - a string (potentially empty) that is appended to the value befor hashing.
   Specify a non empty value for salting purposes.
 
-If including an element with children, include all children and hash each one separately.
+If including an element with children, all children are hashed separately.
 
 This is the default used. Run the cli tool with '-c some_config.json' to load other values,
  in particular in order to set salts.
@@ -14,10 +14,10 @@ DEFAULT_CONFIG = {
     "dead_drop_url": "",
     "sanitised_fields": {
         "eventType": None,
-        "eventId": "Salt",
+        "eventId": None,
         "eventTime": None,
         "action": None,
-        "parentID": "Salt",
+        "parentID": None,
         "epcList": "",
         "inputEPCList": "",
         "outputEPCList": "",
