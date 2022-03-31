@@ -91,11 +91,11 @@ def test_type_parameters():
               ])
 
     """
-    $ echo -n "urn:epc:id:pgln:0614141.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    $ echo -n "urn:epc:id:pgln:0614141.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum
     8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b  -
-    $ echo -n "urn:epc:id:pgln:4012345.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    $ echo -n "urn:epc:id:pgln:4012345.00000urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum
     6fdc0ccc986c941a65c584d6181c1fbca8c29e0e9a0dc0196e83c8c4ddf96f54  -
-    $ echo -n "urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum 
+    $ echo -n "urn:epc:id:gdti:0614141.00002.PO-123"|sha256sum
     2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38  -
     """
     expected = {
