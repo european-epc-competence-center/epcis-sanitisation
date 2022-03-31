@@ -1,5 +1,5 @@
 {
-    "request_event_data_at": "",
+    "request_event_data_at": "https://discovery.epcat.de/dead_drop",
     "eventType": "ObjectEvent",
     "eventId": "ni:///sha-256;7a742a2be1d9c5cc71bda8d58abc93393236e54deca8b5d1672acc8022d6ec34?ver=CBV2.0",
     "eventTime": "2021-04-29T00:00:00.000+02:00",
