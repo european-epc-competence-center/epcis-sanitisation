@@ -12,78 +12,53 @@ Rob Glew <rg522@cam.ac.uk>; Ralph Tröger <ralph.troeger@gs1.de>; Sebastian Schm
 
 In the sanitisation process, all unnecessary data is removed from the event and then any identifiable or possibly sensitive information is obfuscated by hashing. Hashed data is formatted according to https://datatracker.ietf.org/doc/html/rfc6920[RFC6920], i.e. a prefix like “ni://sha-256;” indicates the hashing algorithm (here sha-256). The sanitised and hashed event data is then published through the discovery service, with anyone able to see it but unable to extract sensitive information.
 
-[[Layers]]
-.Graphical Example for an EPCIS event being sanitised (black arrow) and hashed (blue arrow)
-image::sanitisation_and_hashing.png[pdfwidth=95%,align="center"]
+=== Graphical Example
+
+[[Sanitisation]]
+.Graphical Example for an EPCIS event being sanitised and hashed
+image::sanitisation_and_hashing.jpg[pdfwidth=95%,align="center"]
+
+<<Sanitisation>> is a graphical representatoin of an example EPCIS event available at
+https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master/tests/events/ReferenceEventHashAlgorithm.xml
+and the sanitised and hashed discovery data for this event, avaiable at 
+https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master/tests/events/ReferenceEventHashAlgorithm.sanitised.json .
+
+=== Chain Navigation
+
+[[FullChain]]
+.Depiction of a supply chain segment
+image::SanitisationDatasetIllustration.jpg[pdfwidth=95%,align="center"]
+
+The EPCIS events for the ficticious but realistic supply chin segment shown in <<FullChain>> are avaiable in full at 
+https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master/tests/events/SanitisationEventDataset.xml
+with the discovery data at
+https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master/tests/events/SanitisationEventDataset.sanitised.json
 
 
-=== Shipping Event
+We will focus on one step in this chain, naemyl the first shipping and receiving event in order to exemplyfy the chain navigation.
+The code snippets shown in the following are taken from the above mentioned larger files and are individually avaiable at https://github.com/european-epc-competence-center/epcis-sanitisation/tree/master/paper/appendix .
+
+==== Shipping Event
 <<ShippingEvent>> shows a full EPCIS shipping event and <<SanitisedShippingEvent>> the corresponding sanitised and hashed data.
+
 
 [[ShippingEvent]]
 .Example for an EPCIS shipping event
 [source,xml]
 ----
-<ObjectEvent>
-    <eventTime>2021-04-28T00:00:00.000+02:00</eventTime>
-    <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
-    <epcList>
-        <epc>urn:epc:id:sscc:4023333.0222222222</epc>
-    </epcList>
-    <action>OBSERVE</action>
-    <bizStep>urn:epcglobal:cbv:bizstep:shipping</bizStep>
-    <disposition>urn:epcglobal:cbv:disp:in_transit</disposition>
-    <readPoint>
-        <id>urn:epc:id:sgln:4023333.00002.0</id>
-    </readPoint>
-    <bizTransactionList>
-        <bizTransaction type="urn:epcglobal:cbv:btt:po">
-            urn:epc:id:gdti:0614141.00002.PO-123
-        </bizTransaction>
-    </bizTransactionList>
-    <extension>
-        <sourceList>
-            <source type="urn:epcglobal:cbv:sdt:possessing_party">
-                urn:epc:id:pgln:4023333.00000
-            </source>
-        </sourceList>
-        <destinationList>
-            <destination type="urn:epcglobal:cbv:sdt:possessing_party">
-                urn:epc:id:pgln:0614141.00000
-            </destination>
-        </destinationList>
-    </extension>
-</ObjectEvent>
+include::shipping.xml[]
 ----
+
 
 [[SanitisedShippingEvent]]
 .The santised and hashed event from <<ShippingEvent>>. Also exemplifies the 'request data at' deap drop solution
 [source,json]
 ----
-{
-  "request_event_data_at": "https://discovery.epcat.de/dead_drop",
-  "eventType": "ObjectEvent",
-  "eventId": "ni:///sha-256;be2ee5fb9e2bcf3a7dd249328dc4dc832e68c4a456ff27a979a4c7a6b418f1db",
-  "eventTime": "2021-04-28T00:00:00.000+02:00",
-  "action": "OBSERVE",
-  "epcList": [
-    "ni:///sha-256;5e2949760784f50fcda3ce1d5ec4cc255818e252f9fddbd0b9f39d6b00038191"
-  ],
-  "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
-  "sourceList": [
-    "ni:///sha-256;704051f07e24e6d37d6ca3990f116d6139c2486334e854f671e12cf91927be85?type=urn:epcglobal:cbv:sdt:possessing_party"
-  ],
-  "destinationList": [
-    "ni:///sha-256;25260d4d220cbfa5876fd92f81450e4ed86d272a54ffb1bcea1c49b636b9f4de?type=urn:epcglobal:cbv:sdt:possessing_party"
-  ],
-  "bizTransactionList": [
-    "ni:///sha-256;c2999291cefed0b533270ab41e40730aee95fadecc7545d5c67e3536a66fc0da?type=urn:epcglobal:cbv:btt:po"
-  ]
-}
+include::shipping.sanitised.json[]
 ----
 
 
-=== Example of a Full EPCIS Shipping Event
+==== Receiving Event
 
 <<ReceivingEvent>> shows a full EPCIS shipping event and <<SanitisedReceivingEvent>> the corresponding sanitised and hashed data.
 
@@ -91,36 +66,7 @@ image::sanitisation_and_hashing.png[pdfwidth=95%,align="center"]
 .Example for an EPCIS receiving event
 [source,xml]
 ----
-<ObjectEvent>
-    <eventTime>2021-04-29T00:00:00.000+02:00</eventTime>
-    <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
-    <epcList>
-        <epc>urn:epc:id:sscc:4023333.0222222222</epc>
-    </epcList>
-    <action>OBSERVE</action>
-    <bizStep>urn:epcglobal:cbv:bizstep:receiving</bizStep>
-    <disposition>urn:epcglobal:cbv:disp:in_progress</disposition>
-    <readPoint>
-        <id>urn:epc:id:sgln:0614141.00012.0</id>
-    </readPoint>
-    <bizTransactionList>
-        <bizTransaction type="urn:epcglobal:cbv:btt:po">
-            urn:epc:id:gdti:0614141.00002.PO-123
-        </bizTransaction>
-    </bizTransactionList>
-    <extension>
-        <sourceList>
-            <source type="urn:epcglobal:cbv:sdt:possessing_party">
-                urn:epc:id:pgln:4023333.00000
-            </source>
-        </sourceList>
-        <destinationList>
-            <destination type="urn:epcglobal:cbv:sdt:possessing_party">
-                urn:epc:id:pgln:0614141.00000
-            </destination>
-        </destinationList>
-    </extension>
-</ObjectEvent>
+include::receiving.xml[]
 ----
 
 
@@ -128,33 +74,20 @@ image::sanitisation_and_hashing.png[pdfwidth=95%,align="center"]
 .The santised and hashed event from <<ReceivingEvent>>
 [source,json]
 ----
-{
-  "request_event_data_at": "https://discovery.epcat.de/dead_drop",
-  "eventType": "ObjectEvent",
-  "eventId": "ni:///sha-256;0d9c15bb90773ee113466affa42903f5d8fcbf15edae4c0833d1e549699d5d7d",
-  "eventTime": "2021-04-29T00:00:00.000+02:00",
-  "action": "OBSERVE",
-  "epcList": [
-    "ni:///sha-256;5e2949760784f50fcda3ce1d5ec4cc255818e252f9fddbd0b9f39d6b00038191"
-  ],
-  "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
-  "sourceList": [
-    "ni:///sha-256;704051f07e24e6d37d6ca3990f116d6139c2486334e854f671e12cf91927be85?type=urn:epcglobal:cbv:sdt:possessing_party"
-  ],
-  "destinationList": [
-    "ni:///sha-256;25260d4d220cbfa5876fd92f81450e4ed86d272a54ffb1bcea1c49b636b9f4de?type=urn:epcglobal:cbv:sdt:possessing_party"
-  ],
-  "bizTransactionList": [
-    "ni:///sha-256;c2999291cefed0b533270ab41e40730aee95fadecc7545d5c67e3536a66fc0da?type=urn:epcglobal:cbv:btt:po"
-  ]
-}
+include::receiving.sanitised.json[]
 ----
 
-== Chain Navigation
 
-**TBD: Why do we normalize to DL form?**
+==== Linking the Chain
 
 The sanitised and hashed data in the above examples <<SanitisedShippingEvent>> and <<SanitisedReceivingEvent>> is shared through the Discovery Service.
 Anyone who wants to obtain information about the shipment with the id `urn:epc:id:sscc:4023333.0222222222` (see <<ShippingEvent>>) can now
-hash the id, which by the GS1 rules for hashing ids means converting it to digital link form `https://id.gs1.org/00/40233332222222222` and then applying the SHA256 algorithm to get `bd40a15ce952f4a12702b5290fe6ac88db2ce6720c03031c2cfd0c9165229c0a` (see <<SanitisedShippingEvent>>).
+hash the id with standard tools like `echo -n "urn:epc:id:sscc:4023333.0222222222"|sha256sum` to obtain the hex encoded sha256 hash `e5284a01b67b7756c0f51d10e7c74c6f277fea0e1f08ebe8f27fae25b04e695b` and query the discovery service to obtain the data sets <<SanitisedShippingEvent>> and <<SanitisedReceivingEvent>>.
+From these dataset it can be verified that there are matching shipping and receiving IDs of parties with type `posessing_party`. This enables to establish an anonymous chain of custody.
+
+==== Zero Trust Clear Text Exchange
+
+Using the `request_event_data_at` url pointing to the confidential data echange service, anyone can post a request for more information. The data owner may then regularly query for such requests, decide on their legitimacy, and provide all or some clear text information from the original event to the querying party if authorised.
+
+If the data owner finds a request to be insufficiently authorized, he can just ignore the request, which will then time out. This ensures that no information what so ever about the data owner or any of the parties involved in the business transactions is revealed.
 
