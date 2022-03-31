@@ -1,0 +1,20 @@
+{
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;7a742a2be1d9c5cc71bda8d58abc93393236e54deca8b5d1672acc8022d6ec34?ver=CBV2.0",
+    "eventTime": "2021-04-29T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+        "ni:///sha-256;e5284a01b67b7756c0f51d10e7c74c6f277fea0e1f08ebe8f27fae25b04e695b"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+    "sourceList": [
+        "ni:///sha-256;63ba4ead93f79fb67e68a277e85247988fb410ac0c2f00b87f802d75031b52f9?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+        "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+        "ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po"
+    ]
+}

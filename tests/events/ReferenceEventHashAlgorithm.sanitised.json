@@ -1,1 +1,24 @@
-{'request_event_data_at': '', 'eventType': 'ObjectEvent', 'eventId': 'ni:///sha-256;8b089483649d983ea03cfc8d6743beba644eb1cfb5bfc654ec8484a98263c901', 'eventTime': '2020-03-04T11:00:30.000+01:00', 'action': 'OBSERVE', 'epcList': ['ni:///sha-256;1ac005312f9635d448b8ccb7a45f8bba8cccd257025aa06cd1f6445f79cb957c', 'ni:///sha-256;e855ce4446a9726fed412e6e1f58632666917427ea9ed4b43ac4d7dc67a0f135', 'ni:///sha-256;a230ea36d082a729adfb341f4e9cbe48b825c36c9a7bb39e3543b79afe8f874a'], 'bizStep': 'urn:epcglobal:cbv:bizstep:departing'}
+[
+  {
+    "request_event_data_at": "https://discovery.epcat.de/dead_drop",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;bafde852f142d78a9f0cf84c483856e7462a5b2845309f0032cac859ea0f72ba?ver=CBV2.0",
+    "eventTime": "2022-03-04T11:00:30.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;6933ef3a933ad98a450e73ef9aed885755c85a0c3875bb8792c9d9fb3fab53d0",
+      "ni:///sha-256;dcd867bdeecbe10f9ea4e06c1d6d1e1ac458f904f1b98936a3070f3a0646eebb",
+      "ni:///sha-256;51249b94e31bb1b3b92e06be223ed357d4a074b9547960225d66fdee4431a85f"
+    ],
+    "bizStep": "https://ns.gs1.org/cbv/BizStep-departing",
+    "sourceList": [
+      "ni:///sha-256;b0fc2f97c5e81d4739a35fb34e1059b6ca009902a1722fc0da1d1c85bb585d1e?type=https://ns.gs1.org/cbv/SDT-owning_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;ffcdcd3b26f4fbbd9e700bc41106413ebedf3bdb4141460521855abfbd5bf5f8?type=https://ns.gs1.org/cbv/SDT-owning_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;8e80eb3ddc1ddf17407b807040a1fef4f0be21983619d6f28bb8c3185629b126?type=https://ns.gs1.org/cbv/BTT-inv"
+    ]
+  }
+]

@@ -1,11 +1,11 @@
 {
-    "dead_drop_url": "https://drop.eecc.info",
+    "dead_drop_url": "https://discovery.epcat.de/dead_drop",
     "sanitised_fields": {
         "eventType": null,
-        "eventId": "Pepper",
+        "eventId": null,
         "eventTime": null,
         "action": null,
-        "parentID": "",
+        "parentID": null,
         "epcList": "",
         "inputEPCList": "",
         "outputEPCList": "",
@@ -15,8 +15,8 @@
         "inputQuantityList": "",
         "outputQuantityList": "",
         "bizStep": null,
-        "sourceList": "",
-        "destinationList": "SALT",
+        "sourceList": "https://id.gs1.org/253/40123450000544711",
+        "destinationList": "https://id.gs1.org/253/40123450000544711",
         "bizTransactionList": ""
     }
 }

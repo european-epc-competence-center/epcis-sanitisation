@@ -1,0 +1,478 @@
+[
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;14c2603a3c7c62cf3c852be96f6b77df76c42725af54737904b80f8806e4726c?ver=CBV2.0",
+    "eventTime": "2021-04-26T00:00:00.000+02:00",
+    "action": "ADD",
+    "epcList": [
+      "ni:///sha-256;21020079fe0a0d33fff580a79cc2d94d726d08ec54bf239e4c32f6dec3f6fcf4",
+      "ni:///sha-256;31c86faf42684e94905ba15597dc1d498def7d899f463e0c14ae11c7242072ea"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:commissioning",
+    "bizTransactionList": [
+      "ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;87d1c9a8641b98aecddb7987c378a0a7c71a4f9c72abf0a02fa8b26274c3bbf1?ver=CBV2.0",
+    "eventTime": "2021-04-27T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sscc:4023333.0222222222",
+    "childEPCs": [
+      "ni:///sha-256;21020079fe0a0d33fff580a79cc2d94d726d08ec54bf239e4c32f6dec3f6fcf4",
+      "ni:///sha-256;31c86faf42684e94905ba15597dc1d498def7d899f463e0c14ae11c7242072ea"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:packing",
+    "bizTransactionList": [
+      "ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;8cc07dab5f2b6674fd3d892a36c9795846cad9d169bbc2d48a50cd0156c2ec41?ver=CBV2.0",
+    "eventTime": "2021-04-28T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;e5284a01b67b7756c0f51d10e7c74c6f277fea0e1f08ebe8f27fae25b04e695b"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
+    "sourceList": [
+      "ni:///sha-256;63ba4ead93f79fb67e68a277e85247988fb410ac0c2f00b87f802d75031b52f9?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;7a742a2be1d9c5cc71bda8d58abc93393236e54deca8b5d1672acc8022d6ec34?ver=CBV2.0",
+    "eventTime": "2021-04-29T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;e5284a01b67b7756c0f51d10e7c74c6f277fea0e1f08ebe8f27fae25b04e695b"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+    "sourceList": [
+      "ni:///sha-256;63ba4ead93f79fb67e68a277e85247988fb410ac0c2f00b87f802d75031b52f9?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;2428dd1fddb2811d950320b732dda8f4be7312e02be14c2dfb8da9969085da38?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;032f3cd11c8edc075bfe0916b3dc18a1645dea7a1b5a14c108d027e1da2e4207?ver=CBV2.0",
+    "eventTime": "2021-04-30T00:00:00.000+02:00",
+    "action": "DELETE",
+    "parentID": "urn:epc:id:sscc:4023333.0222222222",
+    "childEPCs": [
+      "ni:///sha-256;21020079fe0a0d33fff580a79cc2d94d726d08ec54bf239e4c32f6dec3f6fcf4",
+      "ni:///sha-256;31c86faf42684e94905ba15597dc1d498def7d899f463e0c14ae11c7242072ea"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:unpacking"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;bcb6f9a425f41bbc6296fbc1eaa6b71bceca29f20b3f67167cc03e13f116f22e?ver=CBV2.0",
+    "eventTime": "2021-05-03T00:00:00.000+02:00",
+    "action": "ADD",
+    "epcList": [
+      "ni:///sha-256;531bfe634bffad1df0be93844282daf3444943b796ae4481f704a87538bd7b1b",
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9",
+      "ni:///sha-256;0679431a90fb1887c2277af6c4898bcbf80ad7b012bbce81f3e5e4b54895b135"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:commissioning",
+    "bizTransactionList": [
+      "ni:///sha-256;878f65b6edb288eed9008fa2dd4775c36b837d313449eac4c44ae8526aa41760?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;3fe04e1b2699bf70d4b8a3188d927ff27f4c83259213638d03c04451badbbb5f?ver=CBV2.0",
+    "eventTime": "2021-05-04T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sscc:4012345.0111111111",
+    "childEPCs": [
+      "ni:///sha-256;531bfe634bffad1df0be93844282daf3444943b796ae4481f704a87538bd7b1b",
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9",
+      "ni:///sha-256;0679431a90fb1887c2277af6c4898bcbf80ad7b012bbce81f3e5e4b54895b135"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:packing",
+    "bizTransactionList": [
+      "ni:///sha-256;878f65b6edb288eed9008fa2dd4775c36b837d313449eac4c44ae8526aa41760?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;0bfa7c79b1862dc85bb52eab36c3ded3d082ddc64b5bccc2aa1f4db4a474c064?ver=CBV2.0",
+    "eventTime": "2021-05-05T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;7a817e8819881b9a5fb7117f94764e63c31160633a549ca064b69621b59461fc"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
+    "sourceList": [
+      "ni:///sha-256;6fdc0ccc986c941a65c584d6181c1fbca8c29e0e9a0dc0196e83c8c4ddf96f54?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;878f65b6edb288eed9008fa2dd4775c36b837d313449eac4c44ae8526aa41760?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;a1083baa33611fde65a91695eb3c21633a26bc04b09b474d37c70b5b0c95f61d?ver=CBV2.0",
+    "eventTime": "2021-05-06T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;7a817e8819881b9a5fb7117f94764e63c31160633a549ca064b69621b59461fc"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+    "sourceList": [
+      "ni:///sha-256;6fdc0ccc986c941a65c584d6181c1fbca8c29e0e9a0dc0196e83c8c4ddf96f54?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;878f65b6edb288eed9008fa2dd4775c36b837d313449eac4c44ae8526aa41760?type=urn:epcglobal:cbv:btt:po"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;6e421a7aa7e69f14eb0f440b627d7c1a18130cacdea59437e87ce35592a01727?ver=CBV2.0",
+    "eventTime": "2021-05-07T00:00:00.000+02:00",
+    "action": "DELETE",
+    "parentID": "urn:epc:id:sscc:4012345.0111111111",
+    "childEPCs": [
+      "ni:///sha-256;531bfe634bffad1df0be93844282daf3444943b796ae4481f704a87538bd7b1b",
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9",
+      "ni:///sha-256;0679431a90fb1887c2277af6c4898bcbf80ad7b012bbce81f3e5e4b54895b135"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:unpacking"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;d5d363b2df917bd56ec4848139526289f2f3207430a7b5737a06ca2babdd889d?ver=CBV2.0",
+    "eventTime": "2021-05-10T00:00:00.000+02:00",
+    "action": "ADD",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:commissioning"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;7f549a1d89279d6764bf10720ff286e9b35b90228721c4c6767b2fd141b9ccd5?ver=CBV2.0",
+    "eventTime": "2021-05-11T00:00:00.000+02:00",
+    "action": "ADD",
+    "epcList": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:commissioning"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AssociationEvent",
+    "eventId": "ni:///sha-256;b30cf1bce833def23638579a49c0931f6058b4b572d6e413e5bd9d57094550d5?ver=CBV2.0",
+    "eventTime": "2021-05-12T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sgtin:0614141.099887.R2D2",
+    "childEPCs": [
+      "ni:///sha-256;531bfe634bffad1df0be93844282daf3444943b796ae4481f704a87538bd7b1b",
+      "ni:///sha-256;21020079fe0a0d33fff580a79cc2d94d726d08ec54bf239e4c32f6dec3f6fcf4"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:installing"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AssociationEvent",
+    "eventId": "ni:///sha-256;424798e2e635505a32db70757499577d9e2a5902d5ad96e7dfc2e0eb550ee425?ver=CBV2.0",
+    "eventTime": "2021-05-13T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sgtin:0614141.099887.C3PO",
+    "childEPCs": [
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9",
+      "ni:///sha-256;56941be55bdd32afb9c344d33b451b2c68ead9328bc0703761af3acf7c7f3656"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:installing"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;c796e8723e9310856bc01b170f6c855bcea390f411d8b59647a45c33c1d923dc?ver=CBV2.0",
+    "eventTime": "2021-05-17T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sscc:0614141.0333333333",
+    "childEPCs": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:packing",
+    "bizTransactionList": [
+      "ni:///sha-256;02bb89f7d8643f0f6ae62d74a12570ebf6d3d453764e6e022e72d5403baef2eb?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;e15b53937212d5137072e2de67c15738e654bd2e4fd1581c15d4fd1b591a922f?ver=CBV2.0",
+    "eventTime": "2021-05-18T00:00:00.000+02:00",
+    "action": "ADD",
+    "parentID": "urn:epc:id:sscc:0614141.0333333334",
+    "childEPCs": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:packing",
+    "bizTransactionList": [
+      "ni:///sha-256;9f06e97b697cfa947a36cf1de73ed6e13f65a29c6788127f4f604457f760a1a4?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;9bd9d47d5bc83881d64b1799e66a3ea1d89222926f9a399b76b6a9118cb92af4?ver=CBV2.0",
+    "eventTime": "2021-05-19T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;5f240c29590a61fbfc01e76cd29eb58d96ed22fa1cf833403aa8c2fa6ff34bc0"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
+    "sourceList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;7082be7e8c95b1c5e44c1ba08f801477e7937a03c879dadc844e8cadecca1a69?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;02bb89f7d8643f0f6ae62d74a12570ebf6d3d453764e6e022e72d5403baef2eb?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;9be953dc821bce7f090de2e6e58d0666d6a0e3e6980a4e34fc09303de14a7e05?ver=CBV2.0",
+    "eventTime": "2021-05-20T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;30670abf7131e7b5098efed0007daaa3204caeb605481f8bd4a28d6364d6302c"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
+    "sourceList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;26dab1a08b62eb1dd44523d40bded43f262648cc6cb17d2da9979288037f6166?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;9f06e97b697cfa947a36cf1de73ed6e13f65a29c6788127f4f604457f760a1a4?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;e304c169702baba34fbb947d564a7344deff5fd0c09e78b2f9d635d8026ab7b3?ver=CBV2.0",
+    "eventTime": "2021-05-24T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;5f240c29590a61fbfc01e76cd29eb58d96ed22fa1cf833403aa8c2fa6ff34bc0"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+    "sourceList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;7082be7e8c95b1c5e44c1ba08f801477e7937a03c879dadc844e8cadecca1a69?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;02bb89f7d8643f0f6ae62d74a12570ebf6d3d453764e6e022e72d5403baef2eb?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;9713a02ff5407e4c692d46fc9855d702c9f3e2655d21dca46212d3cbf2cbb7b6?ver=CBV2.0",
+    "eventTime": "2021-05-25T00:00:00.000+02:00",
+    "action": "DELETE",
+    "parentID": "urn:epc:id:sscc:0614141.0333333333",
+    "childEPCs": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:unpacking"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;65ee6a2bc7e86086540dff5a7cefcd723861229afdcafbbb1f133133d93575cb?ver=CBV2.0",
+    "eventTime": "2021-05-26T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:retail_selling"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;0f253e5b7008a4cef287619c6b2d7bd3b67da4604c1361e0d3302251a901899a?ver=CBV2.0",
+    "eventTime": "2021-05-31T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;30670abf7131e7b5098efed0007daaa3204caeb605481f8bd4a28d6364d6302c"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+    "sourceList": [
+      "ni:///sha-256;8d2cdc63d2e3d173174c9167ac4a857dfc0a0abba7cee54ef0e4b9a21156021b?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "destinationList": [
+      "ni:///sha-256;26dab1a08b62eb1dd44523d40bded43f262648cc6cb17d2da9979288037f6166?type=urn:epcglobal:cbv:sdt:possessing_party"
+    ],
+    "bizTransactionList": [
+      "ni:///sha-256;9f06e97b697cfa947a36cf1de73ed6e13f65a29c6788127f4f604457f760a1a4?type=urn:epcglobal:cbv:btt:inv"
+    ]
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AggregationEvent",
+    "eventId": "ni:///sha-256;08c84deb5dd81d0dea11221ef358349382dafcfe72b23afc5435f603cff3a478?ver=CBV2.0",
+    "eventTime": "2021-06-01T00:00:00.000+02:00",
+    "action": "DELETE",
+    "parentID": "urn:epc:id:sscc:0614141.0333333334",
+    "childEPCs": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:unpacking"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;38d0db8b862c9adbec1b363e2e63ad3de6804c58dc564f325de22d85fa4945b2?ver=CBV2.0",
+    "eventTime": "2021-06-02T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:retail_selling"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;c433c91528e319941e40a2a39f7a880a6f84540c5a658f653cee1d00437cb59e?ver=CBV2.0",
+    "eventTime": "2024-03-18T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:arriving"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;7d806bd9836d15e8ad901cb0f12616206d2d92fe52a99b9966442eada54a9be1?ver=CBV2.0",
+    "eventTime": "2024-03-19T00:00:00.000+02:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:inspecting"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;447b22aef5f5bb9fd10a07616d0cbb40edb96b5c78d7bec9fb0ed4004d797648?ver=CBV2.0",
+    "eventTime": "2024-03-20T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:repairing"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;a83d2171087c21ded88bb2b3c0a180bc1b821dd8ec0b4b5f20d7106b44fdefdf?ver=CBV2.0",
+    "eventTime": "2024-03-21T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;3eeb6562d2c3aa7c3e86b571c70acad13c63f710b71e2d04414f17ba24e0c3a7"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:retail_selling"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;55a3631068714a8846540f135f4e5f48d2bd48dfe2b541de74f30d530739003a?ver=CBV2.0",
+    "eventTime": "2029-11-01T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:arriving"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;5d6db2fc1507d98ae3fec6eff9539b411f12ab0cf0d9edc4b35e7f90388ca3cd?ver=CBV2.0",
+    "eventTime": "2029-11-02T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;e7d79ed73eb6c2e6e83e65dcb7e82a80842f219129c8da28e873e5f1acbf09d6"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:inspecting"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "AssociationEvent",
+    "eventId": "ni:///sha-256;514e532c01069218b3d14013706253ad032bafc2f85c961342da93eb95fa0445?ver=CBV2.0",
+    "eventTime": "2029-11-03T00:00:00.000+01:00",
+    "action": "DELETE",
+    "parentID": "urn:epc:id:sgtin:0614141.099887.C3PO",
+    "childEPCs": [
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9",
+      "ni:///sha-256;56941be55bdd32afb9c344d33b451b2c68ead9328bc0703761af3acf7c7f3656"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:disassembling"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;b0d85a1552ede278a229790f75982fe37c730a7651b8decb8c286eba9158d2ba?ver=CBV2.0",
+    "eventTime": "2029-11-04T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;56941be55bdd32afb9c344d33b451b2c68ead9328bc0703761af3acf7c7f3656"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:destroying"
+  },
+  {
+    "request_event_data_at": "",
+    "eventType": "ObjectEvent",
+    "eventId": "ni:///sha-256;95cfcbc2d0d3ec5e3bf4905a1dcfdc1f0935a589f3cee053f6f23d3e33a0d583?ver=CBV2.0",
+    "eventTime": "2029-11-05T00:00:00.000+01:00",
+    "action": "OBSERVE",
+    "epcList": [
+      "ni:///sha-256;22f7d2c9d4dd6c890fc6dbc636a3003b66fc2751cdb7ff015028ef6a5958a1a9"
+    ],
+    "bizStep": "urn:epcglobal:cbv:bizstep:stocking"
+  }
+]
