@@ -124,10 +124,9 @@ def main(argv):
             with open(os.path.splitext(filename)[0] + '.sanitised.json', 'w') as outfile:
                 outfile.write("\n".join([str(event) for event in sanitised_events]) + "\n")
         else:
-            print("\nSanitised Events:")
-            for event in sanitised_events:
-                print("\n")
-                print(event)
+            print("\n[\n")
+            print(",\n".join([str(event).replace("'", '"') for event in sanitised_events]))
+            print("\n]\n")
 
 
 # goto main if script is run as entrypoint

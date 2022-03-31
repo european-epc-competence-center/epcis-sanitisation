@@ -125,7 +125,8 @@ def sanitise_and_store_json_event(json_events: dict = Body(...)):
 @app.post("/sanitise_xml_event/")
 async def sanitise_and_store_xml_event(request: Request):
     """
-    Post an epcis event in XML format to store a sanitised version.
+    Post an epcis event in XML format to store a sanitised + hashed version in the discovery service.
+    Also returns the stored data.
     """
     __set_logging_cfg_from_db()
 
