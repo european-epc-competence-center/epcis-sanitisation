@@ -23,6 +23,8 @@ https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master
 and the sanitised and hashed discovery data for this event, avaiable at 
 https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master/tests/events/ReferenceEventHashAlgorithm.sanitised.json .
 
+<<<
+
 === Chain Navigation
 
 [[FullChain]]
@@ -37,6 +39,8 @@ https://github.com/european-epc-competence-center/epcis-sanitisation/blob/master
 
 We will focus on one step in this chain, naemyl the first shipping and receiving event in order to exemplyfy the chain navigation.
 The code snippets shown below are taken from the above mentioned larger files.
+
+<<<
 
 ==== Shipping Event
 <<ShippingEvent>> shows a full EPCIS shipping event and <<SanitisedShippingEvent>> the corresponding sanitised and hashed data.
@@ -105,6 +109,7 @@ The code snippets shown below are taken from the above mentioned larger files.
 }
 ----
 
+<<<
 
 ==== Receiving Event
 

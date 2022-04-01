@@ -3,18 +3,18 @@ on:
     types:
       - created
 
-name: Release PDFs
+name: Release PDF
 
 jobs:
   build:
-    name: compile and upload asciidoc
+    name: Compile and upload asciidoc to pdf
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Trust Model PDF Compilation
+      - name: Asciidoc PDF Compilation
         uses: docker://asciidoctor/docker-asciidoctor:latest
         with:
           entrypoint: asciidoctor-pdf
